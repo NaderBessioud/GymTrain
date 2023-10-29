@@ -10,6 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,8 +48,7 @@ public class User implements  UserDetails, Serializable {
     private String image;
     @Column(name = "gender")
     private String gender;
-    @Column(name = "age")
-    private int age;
+  
     @Column(name = "weight")
     private float weight;
     @Column(name = "address")
@@ -64,10 +65,10 @@ public class User implements  UserDetails, Serializable {
     @Column(name="enabled")
     private boolean enabled;
     
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "userw")
     private Set<Workout> workouts;
-   
+    @JsonIgnore
     @OneToMany(mappedBy = "userhw")
     private Set<Weighthistory> weighthistories;
     

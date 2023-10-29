@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+
+.custom-dialog-panel .mat-dialog-container {
+  padding: 0; /* Remove the default padding */
+}
+
+
+
+.mat-form-field-label {
+  color: #8e8e8e !important;
+}
+
+.mat-form-field-underline {
+  background-color: #8e8e8e !important;;
+
+}
+
+
+.mat-form-field-ripple {
+  background-color: #3f51b5 !important;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #3f51b5 !important;
+}
+
+.mat-input-invalid .mat-input-placeholder {
+  color: red;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-underline {
+  background-color: red !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple {
+  color: red !important;
+}
+.mat-form-field.ng-dirty.ng-invalid .mat-form-field-underline {
+  background-color: red;
+}
+

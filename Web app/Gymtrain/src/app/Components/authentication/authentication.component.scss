@@ -1,0 +1,169 @@
+@import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+padding: 0;
+  height: 100%;
+
+
+
+
+}
+i {
+  font-size: 50px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 65vh;
+
+
+  padding-top: 30px;
+}
+
+.left-column {
+  /* Add styles for the left column here, if needed */
+  background-color: #484e55;
+
+}
+
+.right-column {
+  /* Add styles for the right column here, if needed */
+
+  background-color: #fefefe;
+
+}
+
+
+.image {
+
+  display: flex;
+  justify-content: center; /* Center horizontally within .left-column */
+
+
+
+}
+.image img {
+  width: 50%;
+  max-width: 50%;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+
+
+
+/* Tabs with fixed position at the top */
+.tabs {
+
+  top: 0;
+  background-color: #fff; /* Add background color to tabs */
+
+
+}
+
+.tabs button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: #b6b6b7;
+
+
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  width:120px;
+  border-bottom:2px solid #b6b6b7;
+  padding-bottom:5px
+
+}
+
+.tabs button.active {
+  color: #676c74;
+  background-color: transparent;
+  width:120px;
+  border-bottom:2px solid #676c74;
+  padding-bottom:5px;
+  transition: border-bottom-color 0.5s ease-in-out;
+
+
+
+}
+
+/* Center content within tabs and stack input fields vertically */
+.login-form, .registration-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+
+}
+
+.login-form input,
+.registration-form input {
+
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+
+
+
+/* Add more styling for your forms and other content as needed */
+.btnf{
+  background-color: #5e646c;
+  margin-top: 10px;
+  width: 120%;
+  color: white;
+  height: 30px;
+  font-family: "Cooper Black";
+}
+.btnf:disabled{
+  background-color: #dcdcdc;
+  color: #979797;
+  cursor: not-allowed;
+  transition: color 0.3s ease-in-out,background-color 0.3s ease-in-out;
+
+
+}
+
+.Inputerror{
+  font-weight: bold;
+}
+
+.example-full-width {
+  width: 100%;
+}
+::placeholder {
+  color: #8e8e8e;
+
+}
+
+
+
+
+
+

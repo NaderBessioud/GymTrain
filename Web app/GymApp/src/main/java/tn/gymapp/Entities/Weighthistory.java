@@ -36,6 +36,8 @@ private static final long serialVersionUID = 1L;
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	public Long getIdwh() {
 		return idwh;
 	}

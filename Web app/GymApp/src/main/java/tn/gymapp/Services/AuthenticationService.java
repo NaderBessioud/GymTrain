@@ -1,9 +1,11 @@
 package tn.gymapp.Services;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,11 +39,19 @@ public class AuthenticationService {
 	}
 	
 	public JwtAuthenticationResponse signin(String email, String password) {
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		
+		try {
+		    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+		} catch (BadCredentialsException e) {
+		    // Handle invalid credentials here
+			
+		    return null;
+		}
 		var user = rep.findByEmail(email).orElseThrow(()->new IllegalArgumentException("Invalid email or password"));
 		var jwt =jwtService.generateToken(user);
 		var refreshtoken = jwtService.generateRefreshToken(new HashMap<>(), user);
 		JwtAuthenticationResponse authenticationResponse = new JwtAuthenticationResponse();
+		authenticationResponse.setUser(user);
 		authenticationResponse.setToken(jwt);
 		authenticationResponse.setRefreshtoken(refreshtoken);
 		return authenticationResponse;
@@ -54,11 +64,23 @@ public class AuthenticationService {
 		if(jwtService.TokenIsValid(token, user)) {
 			var jwt = jwtService.generateToken(user);
 			JwtAuthenticationResponse authenticationResponse = new JwtAuthenticationResponse();
+			authenticationResponse.setUser(user);
 			authenticationResponse.setToken(jwt);
 			authenticationResponse.setRefreshtoken(token);
 			return authenticationResponse;
 		}
 		return null;
+	}
+	
+	public boolean checkemail(String email) {
+		try {
+			rep.findByEmail(email).get();
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
+		
 	}
 	
 }

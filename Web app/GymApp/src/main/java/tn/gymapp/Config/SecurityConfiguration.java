@@ -5,6 +5,7 @@ import java.net.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -30,8 +31,11 @@ public class SecurityConfiguration {
 	@Autowired
 	private final JwtAuthenticationFilter authenticationFilter;
 	
+	
 	@Autowired
 	private final UserService userService;
+	
+	
 	
 	@Bean
 	public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception{
@@ -52,14 +56,11 @@ public class SecurityConfiguration {
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 		authenticationProvider.setUserDetailsService(userService);
-		authenticationProvider.setPasswordEncoder(passwordEncoder());
+		authenticationProvider.setPasswordEncoder(authenticationFilter.passwordEncoder());
 		return authenticationProvider;
 	}
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+
 
 	
 	@Bean

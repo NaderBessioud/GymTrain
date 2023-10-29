@@ -4,10 +4,13 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -26,11 +29,24 @@ import tn.gymapp.Services.UserService;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	
-	@Autowired
+	
 	private final JWTService jwtService;
 	
-	@Autowired
+	
 	private final UserService userService;
+	
+	
+	
+	  public JwtAuthenticationFilter(UserService userService) {
+	        this.userService = userService;
+	        this.jwtService=new JWTService();
+	        
+	    }
+	  public JwtAuthenticationFilter() {
+		this.jwtService = new JWTService();
+		this.userService = null;
+			
+		}
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -61,6 +77,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		}
 		
 		filterChain.doFilter(request, response);
+	}
+	@Bean
+	
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }

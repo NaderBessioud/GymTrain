@@ -1,0 +1,96 @@
+<div class="container1">
+  <div class="left-column">
+    <i class="fa-solid fa-dumbbell" style="color: #fefefe;"></i>
+    <h4 style="color: #f6f6f7;font-family: 'Cooper Black';">Hyper Gym</h4>
+    <div class="image" >
+      <img [src]="avatarImage" alt="Avatar" >
+    </div>
+  </div>
+  <div class="right-column">
+    <i class="fa-solid fa-dumbbell" style="color: #494e56;"></i>
+
+    <div class="tabs">
+      <button id="loginTab" [ngClass]="{'active': isLoginTab}" (click)="switchToLogin()">LOGIN </button>
+      <button id="registerTab" [ngClass]="{'active': !isLoginTab}" (click)="switchToRegistration()"> REGISTER</button>
+    </div>
+    <div class="forms">
+      <form *ngIf="isLoginTab" class="login-form" (ngSubmit)="Login()" [formGroup]="form" >
+        <mat-form-field class="example-full-width" [style.width.px]=250 style="margin-top: 20px">
+          <mat-label >Email</mat-label>
+        <input  matInput formControlName="email" required type="email" style="color: black"   placeholder="Ex. gym@example.com" [(ngModel)]="email">
+
+
+          <mat-error *ngIf="form.get('email')?.hasError('email') && !form.get('email')?.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="form.get('email')?.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" >
+          <mat-label>Password</mat-label>
+          <input class="input_panel"  matInput  formControlName="password" required type="password"  placeholder="password"  [(ngModel)]="password" style="color: black"  >
+          <mat-error *ngIf="form.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('minlength')">
+            Password should be longer than 8 characters!
+          </mat-error>
+          <mat-error *ngIf="form.get('password')?.hasError('maxlength')">
+            Password can't be longer than 100 characters!
+          </mat-error>
+        </mat-form-field>
+
+        <button type="submit" [disabled]="!form.valid && form.dirty" class="btnf" >Login</button>
+
+      </form>
+      <form *ngIf="!isLoginTab" class="registration-form" (ngSubmit)="Register()" [formGroup]="formR">
+
+        <mat-form-field class="example-full-width" [style.width.px]=250 style="margin-top: 20px">
+          <mat-label >Email</mat-label>
+          <input  matInput formControlName="email" required type="email" style="color: black"   placeholder="Ex. gym@example.com" [(ngModel)]="user.email"  (focusout)="checkemail()">
+          <mat-error *ngIf="formR.get('email')?.hasError('email') && !formR.get('email')?.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="formR.get('email')?.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="example-full-width" >
+          <mat-label>Password</mat-label>
+          <input class="input_panel"  matInput  formControlName="password" required type="password"  placeholder="password"  [(ngModel)]="user.password" style="color: black"  >
+          <mat-error *ngIf="formR.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="formR.get('password')?.hasError('minlength')">
+            Password should be longer than 8 characters!
+          </mat-error>
+          <mat-error *ngIf="formR.get('password')?.hasError('maxlength')">
+            Password can't be longer than 100 characters!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" >
+          <mat-label> Confirm Password</mat-label>
+          <input class="input_panel"  matInput  formControlName="confirmpassword" required type="password"  placeholder="Confirm Password"  [(ngModel)]="pass"  (keyup)="checkPass()" style="color: black"  >
+          <mat-error *ngIf="formR.get('password')?.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="formR.get('password')?.hasError('minlength')">
+            Password should be longer than 8 characters!
+          </mat-error>
+          <mat-error *ngIf="formR.get('password')?.hasError('maxlength')">
+            Password can't be longer than 100 characters!
+          </mat-error>
+
+        </mat-form-field>
+        <p class="Inputerror" [ngStyle]="{'visibility':visiblePass ? 'visible' : 'hidden','color':PassMatch ? 'red' : 'red' }" >{{PassMatch}}</p>
+
+        <button type="submit" class="btnf"  [disabled]="isButtonDisabled || (!formR.valid &&  formR.dirty)">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -2,6 +2,8 @@ package tn.gymapp.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import tn.gymapp.Entities.User;
 import tn.gymapp.Services.AuthenticationService;
 import tn.gymapp.dto.JwtAuthenticationResponse;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class AuthenticationController {
 		return authenticationService.singup(user);
 	}
 	
-	@PostMapping("/signin")
+	@GetMapping("/signin")
 	public JwtAuthenticationResponse signin(@RequestParam("email") String email, @RequestParam("password") String password) {
 		return authenticationService.signin(email, password);
 	}
@@ -35,4 +38,10 @@ public class AuthenticationController {
 	public JwtAuthenticationResponse refreshtoken(@RequestParam("token") String token) {
 		return authenticationService.refreshToken(token);
 	}
+	
+	@GetMapping("/checkemail")
+	public boolean checkemail(@RequestParam("email") String email) {
+		return authenticationService.checkemail(email);
+	}
+	
 }
