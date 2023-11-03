@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthenticationService} from "../../Services/authentication.service";
 import {User} from "../../Models/user";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FloatLabelType} from "@angular/material/form-field";
+import {Router} from "@angular/router";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-authentication',
@@ -10,8 +12,7 @@ import {FloatLabelType} from "@angular/material/form-field";
   styleUrls: ['./authentication.component.scss']
 })
 export class AuthenticationComponent implements OnInit {
-  floatLabelControl = new FormControl('auto' as FloatLabelType);
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
   form: FormGroup=new FormBuilder().group({});
   formR: FormGroup=new FormBuilder().group({});
   user:User = new  User();
@@ -26,7 +27,9 @@ export class AuthenticationComponent implements OnInit {
   pass:string = ""
 
 
-  constructor(private authservice:AuthenticationService, private fb:FormBuilder) { }
+  constructor(private authservice:AuthenticationService, private fb:FormBuilder,
+              private router:Router,
+              public dialogRef: MatDialogRef<AuthenticationComponent>) { }
 
 
 
@@ -52,10 +55,16 @@ export class AuthenticationComponent implements OnInit {
         sessionStorage.setItem("token",res.token);
         sessionStorage.setItem("reftoken",res.refreshtoken);
         sessionStorage.setItem("email",res.user.email);
+        sessionStorage.setItem("id",res.user.idu);
         this.email = ""
         this.password = ""
+        this.dialogRef.close()
+        this.router.navigate(['profile'])
+
       }
       else{
+        this.email = ""
+        this.password = ""
         alert("Invalid email or password")
       }
 
@@ -97,6 +106,7 @@ this.authservice.Checkemail(this.user.email).subscribe(e=>{
 
   ngOnInit(): void {
 
+
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,
@@ -120,9 +130,7 @@ this.authservice.Checkemail(this.user.email).subscribe(e=>{
     })
 
   }
-  getFloatLabelValue(): FloatLabelType {
-    return this.floatLabelControl.value || 'auto';
-  }
+
 
 
 

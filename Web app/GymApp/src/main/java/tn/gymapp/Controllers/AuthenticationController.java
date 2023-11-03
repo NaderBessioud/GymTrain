@@ -1,5 +1,7 @@
 package tn.gymapp.Controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
+import tn.gymapp.Entities.ImageResponse;
 import tn.gymapp.Entities.User;
 import tn.gymapp.Services.AuthenticationService;
+import tn.gymapp.Services.FileService;
 import tn.gymapp.dto.JwtAuthenticationResponse;
 
 @CrossOrigin(origins="*")
@@ -23,6 +28,7 @@ public class AuthenticationController {
 	
 	@Autowired
 	private final AuthenticationService authenticationService;
+
 	
 	@PostMapping("/signup")
 	public User signup(@RequestBody User user){
@@ -43,5 +49,8 @@ public class AuthenticationController {
 	public boolean checkemail(@RequestParam("email") String email) {
 		return authenticationService.checkemail(email);
 	}
+	
+	
+
 	
 }

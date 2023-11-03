@@ -14,6 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,15 +53,18 @@ public class User implements  UserDetails, Serializable {
   
     @Column(name = "weight")
     private float weight;
+    @Column(name = "height")
+    private float height;
     @Column(name = "address")
     private String address;
     @Column(name = "phone")
-    private Long phone;
+    private String phone;
     @Temporal(TemporalType.DATE)
     @Column(name = "birthday")
     private Date birthday;
     @Column(name = "aboutme")
     private String aboutMe;
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
     @Column(name="enabled")
@@ -81,39 +86,42 @@ public class User implements  UserDetails, Serializable {
 	
 	
 	
-	
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
+      
 		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
-	
+
+    @JsonIgnore
 	@Override
 	public String getUsername() {
 		return email;
 	}
+    @JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 
 		return true;
 	}
+    @JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
+    @JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
+    @JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	  @Override
-	    public String getPassword() {
-	        return password;
-	    }
+
 
 
 

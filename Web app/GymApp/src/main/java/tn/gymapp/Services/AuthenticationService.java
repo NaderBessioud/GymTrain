@@ -45,8 +45,8 @@ public class AuthenticationService {
 		} catch (BadCredentialsException e) {
 		    // Handle invalid credentials here
 			
-		    return null;
 		}
+		
 		var user = rep.findByEmail(email).orElseThrow(()->new IllegalArgumentException("Invalid email or password"));
 		var jwt =jwtService.generateToken(user);
 		var refreshtoken = jwtService.generateRefreshToken(new HashMap<>(), user);

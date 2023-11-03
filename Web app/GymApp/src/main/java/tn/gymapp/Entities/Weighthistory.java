@@ -38,6 +38,14 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
+	public Weighthistory(float weight, Date date, User userhw) {
+		super();
+		this.weight = weight;
+		this.date = date;
+		this.userhw = userhw;
+	}
+
+
 	public Long getIdwh() {
 		return idwh;
 	}

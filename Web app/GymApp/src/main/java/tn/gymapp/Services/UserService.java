@@ -1,8 +1,12 @@
 package tn.gymapp.Services;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import tn.gymapp.Entities.Role;
 import tn.gymapp.Entities.User;
 import tn.gymapp.Entities.Weighthistory;
 import tn.gymapp.Repositories.UserRep;
@@ -21,7 +26,7 @@ import tn.gymapp.Repositories.WeighthisRep;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService  {
 	@Autowired
 	private UserRep userrep;
 	
@@ -42,8 +47,63 @@ public class UserService implements UserDetailsService {
 	}
 
 	
+	@Transactional
 	public User UpdateUser(User u) {
-		u.setPassword(encoder.encode(u.getPassword()));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date currentDate=new Date();
+		try {
+			currentDate = dateFormat.parse(dateFormat.format(new Date()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+       
+		Weighthistory weighthistory=new Weighthistory();
+		
+			
+	
+		if(wrep.findByUserhwOrderByDateDesc(u).size() >0) {
+			 
+			if(u.getWeight()!=0) {
+			if(wrep.findByUserhwOrderByDateDesc(u).get(0).getDate().compareTo(currentDate)!= 0) {
+			
+				weighthistory.setUserhw(u);
+				weighthistory.setWeight(u.getWeight());
+				weighthistory.setDate(new Date());
+				weighthistory=wrep.save(weighthistory);
+				
+			}
+			else {
+				if( wrep.findByUserhwOrderByDateDesc(u).get(0).getWeight() != u.getWeight()) {
+					weighthistory.setUserhw(u);
+					weighthistory.setWeight(u.getWeight());
+					weighthistory.setDate(new Date());
+					weighthistory=wrep.save(weighthistory);
+				}
+			}
+			}
+			
+		}
+		else {
+			
+			weighthistory.setUserhw(u);
+			weighthistory.setWeight(u.getWeight());
+			weighthistory.setDate(new Date());
+			weighthistory=wrep.save(weighthistory);
+			
+		
+		}
+		 if (u.getWeighthistories() == null) {
+		        u.setWeighthistories(new HashSet<>());
+		    }
+		
+		 u.getWeighthistories().add(weighthistory);
+		
+		u.setEnabled(true);
+		u.setRole(Role.User);
+		
 		return userrep.save(u);
 	}
 
@@ -59,13 +119,17 @@ public class UserService implements UserDetailsService {
 		return (List<User>) userrep.findAll();
 	}
 	
-	
-	
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userrep.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("user not found"));
+	public UserDetailsService userDetailService() {
+		return new UserDetailsService() {
+			
+			@Override
+			public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+				// TODO Auto-generated method stub
+				 return   userrep.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("user not found"));
+			}
+		};
 	}
+
 	
 	@Transactional
 	public void UpdateWeight(float w, Long id) {
@@ -80,5 +144,34 @@ public class UserService implements UserDetailsService {
 		
 		userrep.save(user);
 	}
+
+
+	public boolean updatePassword(String pass,long id) {
+		try {
+			User user = userrep.findById(id).get();
+			user.setPassword(encoder.encode(pass));
+			
+			userrep.save(user);
+			return true;
+		}
+		catch(Exception ex) {
+			return false;
+		}
+		
+	}
+
+
+	public User getUserById(long id) {
+		
+		return userrep.findById(id).get();
+	}
+	
+	public boolean checkcpass(String pass,long id) {
+		User user=userrep.findById(id).get();
+		
+		return(user.getPassword().equals(encoder.encode(pass)));
+	}
+	
+	
 
 }

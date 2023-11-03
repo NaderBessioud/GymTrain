@@ -9,6 +9,7 @@ export class User {
   image:any;
   gender:any;
   weight:any;
+  height:any;
   address:any;
   phone:any;
   birthday:any;

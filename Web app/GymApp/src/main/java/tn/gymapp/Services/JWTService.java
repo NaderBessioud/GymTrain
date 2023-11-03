@@ -1,28 +1,36 @@
 package tn.gymapp.Services;
 
+
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.security.Key;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoder;
+
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
 
 @Service
 public class JWTService {
 	
 	
+	
 	public String generateToken(UserDetails userdetails) {
+		
 		return Jwts.builder().setSubject(userdetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
+				
 				.setExpiration(new Date(System.currentTimeMillis()+ 1000 *60 *24))
 				.signWith(getSignKey(), SignatureAlgorithm.HS256)
 				.compact();
@@ -63,4 +71,6 @@ public class JWTService {
 	private boolean isTokenExpired(String token) {
 		return extractClaim(token, Claims::getExpiration).before(new Date() );
 	}
+	
+
 }

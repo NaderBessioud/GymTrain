@@ -1,0 +1,301 @@
+
+<body>
+<div class="container">
+  <div class="row flex-lg-nowrap">
+    <div class="col col-lg-auto mb-5 " style="width: 200px;">
+      <div class="card card1 p-3">
+        <div class="e-navlist e-navlist--active-bg">
+
+
+          <div class="card-body">
+            <div class="account-settings">
+              <div class="user-profile">
+                <div class="user-avatar">
+                  <div class="image-container">
+                    <div class="border">
+
+                      <img [src]="dbImage" alt="https://bootdey.com/img/Content/avatar/avatar7.png">
+                    </div>
+                      <i class="camera-icon fas fa-camera" (click)="fileInput.click()"></i>
+                  </div>
+                  <input type="file" #fileInput accept=".png,.jpg,.jpeg" style="display: none;" (change)="onimageChanged($event)">
+                </div>
+
+                <h5 class="user-name">Yuki Hayashi</h5>
+                <h6 class="user-email">yuki@Maxwell.com</h6>
+              </div>
+              <div class="about">
+                <h5>About</h5>
+                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <div class="col mb-5">
+          <div class="placeholder-container">
+          <div class="card card2  " >
+            <div class="card-body">
+              <div class="e-profile "  >
+
+                <ul class="nav nav-tabs" style="">
+                  <li class="nav-item"><button  class=" nav-link" [ngClass]="{'active': isinfotTab}" (click)="switchToInfo()">Settings</button></li>
+                  <li class="nav-item"><button  class="  nav-link" [ngClass]="{'active':! isinfotTab}" (click)="switchToPassword()">Settings</button></li>
+                </ul>
+                <div class="tab-content form-container pt-3"  *ngIf="isinfotTab">
+                  <div class="tab-pane active">
+                    <form class="form" novalidate="" [formGroup]="form">
+                      <div class="row">
+                        <div class="col">
+                          <div class="row">
+                            <div style="display: flex; flex-wrap: nowrap;">
+
+
+                            <div class="col" style="flex: 1;">
+                              <div class="form-group">
+
+                                <mat-form-field class="example-full-width" >
+                                  <mat-label>Last Name</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="lastname" required type="text"  placeholder="Your Name"  [(ngModel)]="user.lastName"  >
+                                  <mat-error *ngIf="form.get('lastname')?.hasError('required')">
+                                    Last name is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                            <div class="col" style="flex: 1;">
+                              <div class="form-group">
+                                <mat-form-field class="example-full-width" >
+                                  <mat-label>First Name</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="firstname" required type="text"  placeholder="Your First Name"   [(ngModel)]="user.firstName" >
+                                  <mat-error *ngIf="form.get('firstname')?.hasError('required')">
+                                    First name is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <mat-form-field class="example-full-width" [style.width.px]=500 >
+                                  <mat-label>Email</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="email" required type="email"  placeholder="user@example.com"  [(ngModel)]="user.email" >
+                                  <mat-error *ngIf="form.get('email')?.hasError('email') && !form.get('email')?.hasError('required')">
+                                    Please enter a valid email address
+                                  </mat-error>
+                                  <mat-error *ngIf="form.get('email')?.hasError('required')">
+                                    Email is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+
+                                <mat-form-field class="example-full-width" [style.width.px]=500 >
+                                  <mat-label>Address</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="address" required type="text"  placeholder="Your address" [(ngModel)]="user.address" >
+
+                                  <mat-error *ngIf="form.get('address')?.hasError('required')">
+                                    Address is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div style="display: flex; flex-wrap: nowrap;">
+
+                            <div class="col" style="flex: 1;">
+                              <div class="form-group">
+
+
+
+                                <mat-form-field class="example-full-width"  >
+                                  <mat-label>Phone</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="tel" required type="text"  placeholder="Your phone" appPhoneNumber="-"  style="font-size: 20px;" [(ngModel)]="user.phone">
+
+                                  <mat-error *ngIf="form.get('tel')?.hasError('required')">
+                                    Phone is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+                              </div>
+                            </div>
+                            <div class="col" style="flex: 1;">
+                              <div class="form-group">
+                                <mat-form-field>
+                                  <mat-label>gender</mat-label>
+                                  <mat-select  [(ngModel)]="user.gender"    formControlName="gender">
+                                    <mat-option *ngFor="let food of foods" [value]="food" style="background-color: white;color: black" >
+                                      {{food}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+
+
+
+                              </div>
+                            </div>
+                        </div>
+                          </div>
+                          <div class="row">
+                            <div style="display: flex; flex-wrap: nowrap;">
+
+                            <div class="col" style="flex: 1;">
+                              <div class="form-group">
+
+
+                                <mat-form-field class="example-full-width"  >
+                                  <mat-label>Weight</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="weight" required type="number"  placeholder="Your Weight" [(ngModel)]="user.weight"  >
+
+                                  <mat-error *ngIf="form.get('weight')?.hasError('required')">
+                                    Phone is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+                              </div>
+                            </div>
+                            <div class="col" style="flex: 1;">
+
+                              <div class="form-group">
+
+                                <mat-form-field class="example-full-width"  >
+                                  <mat-label>Height</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="height" required type="number"  placeholder="Your Height" [(ngModel)]="user.height"  >
+
+                                  <mat-error *ngIf="form.get('height')?.hasError('required')">
+                                    Phone is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">
+                            <div class="col mb-5">
+                              <div class="form-group">
+
+                                <mat-form-field class="example-full-width" [style.width.px]=500  >
+                                  <mat-label>About</mat-label>
+                                  <textarea class="input_panel"  matInput  formControlName="aboutMe" required rows="5"   placeholder="Your Weight"  [(ngModel)]="user.aboutMe" ></textarea>
+
+                                  <mat-error *ngIf="form.get('aboutMe')?.hasError('required')">
+                                    Phone is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-primary" type="submit" (click)="updateProfile()">Update Profile</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+                <div class="tab-content pt-3 "  *ngIf="!isinfotTab">
+                  <div class="tab-pane active">
+                    <form class="form" [formGroup]="formP">
+
+                      <div class="row">
+                        <div class="col-12 col-sm-6 mb-5">
+
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+
+
+                                <mat-form-field class="example-full-width" >
+                                  <mat-label>Current Password</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="cpass" required type="password"  placeholder="••••••" [(ngModel)]="cpass"   >
+                                  <mat-error *ngIf="formP.get('cpass')?.hasError('required')">
+                                    Current password is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+
+
+                                <mat-form-field class="example-full-width" >
+                                  <mat-label>New Password</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="npass" required type="password"  placeholder="••••••"  [(ngModel)]="npass"  >
+                                  <mat-error *ngIf="formP.get('npass')?.hasError('required')">
+                                    New password is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+
+
+                                <mat-form-field class="example-full-width" >
+                                  <mat-label>Confirm Password</mat-label>
+                                  <input class="input_panel"  matInput  formControlName="copass" required type="password"  placeholder="••••••"  [(ngModel)]="cnpass"  >
+                                  <mat-error *ngIf="formP.get('copass')?.hasError('required')">
+                                    password is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+                                <p class="Inputerror" [ngStyle]="{'visibility':visiblePass ? 'visible' : 'hidden','color':'red' }" >{{PassMatch}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col d-flex justify-content-end">
+                          <button class="btn btn-primary" type="submit"[disabled]="isButtonDisabled || (!formP.valid &&  formP.dirty)" (click)="UpdatePassword()">Change password</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+
+

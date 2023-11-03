@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AuthenticationComponent} from "../authentication/authentication.component";
 
 @Component({
@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog) {
   }
 
+
+
   ngOnInit(): void {
   }
 
@@ -23,9 +25,10 @@ export class HomeComponent implements OnInit {
 
         width:"1000px",
         height:"65vh",
-        panelClass: 'custom-dialog-panel'
+        panelClass: 'custom-dialog-panel',
 
-      });
+
+      },);
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`Modal result: ${result}`);

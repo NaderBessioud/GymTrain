@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {JwtAuthenticationResponse} from "../Models/jwt-authentication-response";
 import {Observable} from "rxjs";
 import {User} from "../Models/user";
+import {ImageResponse} from "../Models/image-response";
 
 
 @Injectable({
@@ -24,6 +25,14 @@ export class AuthenticationService {
 
   Checkemail(email:string):Observable<boolean>{
     return this.http.get<boolean>(this.URL+"checkemail",{params:{email:email}})
+  }
+
+  UploadImage(image:FormData):Observable<ImageResponse>{
+    return this.http.post<ImageResponse>(this.URL+ "uploadimage",image);
+  }
+
+  DownloadImage(name:string):Observable<ImageResponse>{
+    return this.http.get<ImageResponse>(this.URL + "downloadimage",{params:{image:name}})
   }
 
 
