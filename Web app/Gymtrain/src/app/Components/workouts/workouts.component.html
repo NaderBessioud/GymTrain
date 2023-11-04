@@ -1,0 +1,93 @@
+<button type="button" class="btn btn-primary" (click)="parentModal.show()">Change Workout routine</button>
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 id="dialog-nested-name1" class="modal-title pull-left">Push Pull rest</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="parentModal.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="form">
+        <mat-form-field class="example-full-width"  >
+          <mat-label>Push Pull rest</mat-label>
+          <input class="input_panel"  matInput  formControlName="ppr" required type="number"  placeholder="Rest" [(ngModel)]="ppr"  >
+
+          <mat-error *ngIf="form.get('ppr')?.hasError('required')">
+            Please enter the number of rest days
+          </mat-error>
+        </mat-form-field>
+        </form>
+        <button type="button" class="btn btn-primary" (click)="childModal.show()">confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #childModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 id="dialog-nested-name2" class="modal-title pull-left">Pull Legs Rest</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="childModal.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="form">
+          <mat-form-field class="example-full-width"  >
+            <mat-label>Pull Legs rest</mat-label>
+            <input class="input_panel"  matInput  formControlName="plr" required type="number"  placeholder="Rest" [(ngModel)]="plr"  >
+
+            <mat-error *ngIf="form.get('plr')?.hasError('required')">
+              Please enter the number of rest days
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <button type="button" class="btn btn-primary" (click)="thirdModal.show()">confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #thirdModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name3">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 id="dialog-nested-name3" class="modal-title pull-left">Legs Push Rest</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="thirdModal.hide()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="form">
+          <mat-form-field class="example-full-width"  >
+            <mat-label>Legs Push rest</mat-label>
+            <input class="input_panel"  matInput  formControlName="lpr" required type="number"  placeholder="Rest" [(ngModel)]="lpr"  >
+
+            <mat-error *ngIf="form.get('lpr')?.hasError('required')">
+              Please enter the number of rest days
+            </mat-error>
+          </mat-form-field>
+        </form>
+        <button type="button" class="btn btn-primary" (click)="updateWorkoutRoutine()">confirm</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<full-calendar [options]="calendarOptions" style="margin-top: 20px"></full-calendar>
+
+<ng-template #template>
+  <div class="modal-header bg-primary text-white">
+    <h4 class="modal-title pull-left">Your Workout</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    You have {{title}} on {{ start | date}}
+  </div>
+</ng-template>

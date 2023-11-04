@@ -67,6 +67,7 @@ export class UserProfileComponent implements OnInit {
         height: ['', [Validators.required]],
         aboutMe: ['', [Validators.required]],
         gender: ['', [Validators.required]],
+      birthdate: ['', [Validators.required]],
     })
 
       this.formP = this.fb.group({
@@ -139,6 +140,7 @@ export class UserProfileComponent implements OnInit {
       user1.image=this.user.image
       user1.address=this.user.address
       user1.email=this.user.email
+      user1.workoutroutine=this.user.workoutroutine
 
       this.service.UpdateProfile(user1).subscribe(res=>{
           alert("Prodile updated")

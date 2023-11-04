@@ -18,6 +18,10 @@ import { UserProfileComponent } from './Components/user-profile/user-profile.com
 import { PhoneNumberDirective } from './Directive/phone-number.directive';
 import {MatSelectModule} from "@angular/material/select";
 import {TokenInterceptorService} from "./Interceptor/token-interceptor.service";
+import {WorkoutsComponent} from "./Components/workouts/workouts.component";
+import {FullCalendarModule} from "@fullcalendar/angular";
+import { ModalModule } from 'ngx-bootstrap/modal';
+import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -27,7 +31,8 @@ import {TokenInterceptorService} from "./Interceptor/token-interceptor.service";
     NavandsidebarComponent,
     NavbarComponent,
     UserProfileComponent,
-    PhoneNumberDirective
+    PhoneNumberDirective,
+    WorkoutsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,9 +42,13 @@ import {TokenInterceptorService} from "./Interceptor/token-interceptor.service";
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
+    MatDatepickerModule,
     HttpClientModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    FullCalendarModule,
+
+    ModalModule.forRoot()
 
   ],
   providers: [{

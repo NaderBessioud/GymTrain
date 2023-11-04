@@ -172,6 +172,13 @@ public class UserService  {
 		return(user.getPassword().equals(encoder.encode(pass)));
 	}
 	
+	public User updateWorkoutRoutine(User u) {
+		User user= userrep.findById(u.getIdu()).get();
+		user.setWorkoutroutine(u.getWorkoutroutine());
+		return userrep.save(user);
+		
+	}
+	
 	
 
 }

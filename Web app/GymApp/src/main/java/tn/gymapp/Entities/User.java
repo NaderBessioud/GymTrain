@@ -64,6 +64,8 @@ public class User implements  UserDetails, Serializable {
     private Date birthday;
     @Column(name = "aboutme")
     private String aboutMe;
+    @Column(name = "workoutroutine")
+    private String workoutroutine;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;

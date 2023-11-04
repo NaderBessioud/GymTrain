@@ -4,6 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../Models/user";
 import {Observable} from "rxjs";
 import {ImageResponse} from "../Models/image-response";
+import {WorkoutsResponse} from "../Models/workouts-response";
+import {Workoutevent} from "../Models/workoutevent";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,14 @@ export class UserService {
   GetUserById(id:any):Observable<User>{
     return this.http.get<User>(this.URL+"userPerId",{params:{id:id}})
   }
+  updateWorkoutRoutine(u:User):Observable<User>{
+    return this.http.post<User>(this.URL+"upadateWorkoutRoutine",u);
+  }
+
+  getWorkoutsDate(id:any):Observable<Workoutevent[]>{
+    return this.http.get<Workoutevent[]>(this.URL+"WorkoutsDate",{params:{id:id}})
+  }
+
 
 }
 

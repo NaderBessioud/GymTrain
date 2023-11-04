@@ -16,7 +16,7 @@ export class User {
   aboutMe:any;
   role:any;
   enabled:any;
-
+  workoutroutine:any;
   workouts:any;
   weighthistories:any;
 

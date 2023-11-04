@@ -8,8 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-
+@Data
+@RequiredArgsConstructor
 @Entity
 public class Exercice  implements Serializable{
 	
@@ -29,68 +32,16 @@ public class Exercice  implements Serializable{
 	private int nberep;
 	@Column(name="resistance")
 	private float resistance;
-	@Column(name="iduser")
-	private Long iduser;
+	@Column(name="muscle")
+	private String muscle;
+	@Column(name="bodypart")
+	private String bodypart;
 	
 	
 	@ManyToOne
-	private Muscle muscle;
+	private Workout workout;
 	
-	
-	public Exercice() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Long getIde() {
-		return ide;
-	}
-	public void setIde(Long ide) {
-		this.ide = ide;
-	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public int getNbsets() {
-		return nbsets;
-	}
-	public void setNbsets(int nbsets) {
-		this.nbsets = nbsets;
-	}
-	public int getNberep() {
-		return nberep;
-	}
-	public void setNberep(int nberep) {
-		this.nberep = nberep;
-	}
-	public float getResistance() {
-		return resistance;
-	}
-	public void setResistance(float load) {
-		this.resistance = load;
-	}
-	public Muscle getMuscle() {
-		return muscle;
-	}
-	public void setMuscle(Muscle muscle) {
-		this.muscle = muscle;
-	}
-	public Long getIduser() {
-		return iduser;
-	}
-	public void setIduser(Long iduser) {
-		this.iduser = iduser;
-	}
-	
-	
+
 
 	
 	

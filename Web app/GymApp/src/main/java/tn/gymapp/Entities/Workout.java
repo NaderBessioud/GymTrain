@@ -14,7 +14,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
+@Data
+@RequiredArgsConstructor
 @Entity
 public class Workout implements Serializable {
 	
@@ -38,58 +42,19 @@ public class Workout implements Serializable {
 	
 	@ManyToOne
 	private User userw;
-	@ManyToMany(mappedBy = "workoutsm")
-	private Set<Muscle> muscles;
-	
-	
-	
-	
-	public Workout() {
+	@ManyToMany(mappedBy = "workout")
+	private Set<Exercice> exercices;
+	public Workout(String title, Date date, TypeWorkout type) {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Long getIdw() {
-		return idw;
-	}
-	public void setIdw(Long idw) {
-		this.idw = idw;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
 		this.title = title;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
 		this.date = date;
-	}
-	public TypeWorkout getType() {
-		return type;
-	}
-	public void setType(TypeWorkout type) {
 		this.type = type;
 	}
-	public Date getSkipdate() {
-		return skipdate;
-	}
-	public void setSkipdate(Date skipdate) {
-		this.skipdate = skipdate;
-	}
-	public User getUserw() {
-		return userw;
-	}
-	public void setUserw(User userw) {
-		this.userw = userw;
-	}
-	public Set<Muscle> getMuscles() {
-		return muscles;
-	}
-	public void setMuscles(Set<Muscle> muscles) {
-		this.muscles = muscles;
-	}
+	
+	
+	
+	
+
 	
 	
 	

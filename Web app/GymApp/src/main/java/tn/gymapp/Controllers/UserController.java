@@ -1,6 +1,7 @@
 package tn.gymapp.Controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,9 @@ import tn.gymapp.Entities.ImageResponse;
 import tn.gymapp.Entities.User;
 import tn.gymapp.Services.FileService;
 import tn.gymapp.Services.UserService;
+import tn.gymapp.Services.WorkoutService;
+import tn.gymapp.dto.Workoutevent;
+import tn.gymapp.dto.WorkoutsResponse;
 
 
 @CrossOrigin(origins="*")
@@ -31,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private WorkoutService workoutService;
 	
 	
 	 @PostMapping("/uploadimage")
@@ -54,6 +61,11 @@ public class UserController {
 		 return service.updatePassword(pass,id);
 	 }
 	 
+	 @PostMapping("/upadateWorkoutRoutine")
+	 public User updateWorkoutRoutine(@RequestBody User user) {
+		 return service.updateWorkoutRoutine(user);
+	 }
+	 
 
 	 @GetMapping("/userPerId")
 	 public User getUserById(@RequestParam("id") long id) {
@@ -63,6 +75,11 @@ public class UserController {
 	 @GetMapping("/checkpass")
 	 public boolean checkcpass(@RequestParam("id") long id,@RequestParam("pass") String pass) {
 		 return service.checkcpass(pass, id);
+	 }
+	 
+	 @GetMapping("/WorkoutsDate")
+	 public List<Workoutevent> getWorkoutsDate(@RequestParam("id") long id) {
+		 return workoutService.getWorkoutsDate(id);
 	 }
 
 }

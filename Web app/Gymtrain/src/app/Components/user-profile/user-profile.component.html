@@ -163,7 +163,7 @@
                                   <input class="input_panel"  matInput  formControlName="weight" required type="number"  placeholder="Your Weight" [(ngModel)]="user.weight"  >
 
                                   <mat-error *ngIf="form.get('weight')?.hasError('required')">
-                                    Phone is <strong>required</strong>
+                                    Weight is <strong>required</strong>
                                   </mat-error>
                                 </mat-form-field>
 
@@ -185,6 +185,27 @@
                               </div>
                             </div>
                           </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+
+
+                                <mat-form-field color="accent">
+                                  <mat-label>birth date</mat-label>
+                                  <input matInput [(ngModel)]="user.birthday" formControlName="birthdate" [matDatepicker]="picker1">
+                                  <mat-hint>MM/DD/YYYY</mat-hint>
+                                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker1></mat-datepicker>
+                                  <mat-error *ngIf="form.get('birthdate')?.hasError('required')">
+                                    Birth date is <strong>required</strong>
+                                  </mat-error>
+                                </mat-form-field>
+
+
+
+                              </div>
+                            </div>
                           </div>
                           <div class="row">
                             <div class="col mb-5">
