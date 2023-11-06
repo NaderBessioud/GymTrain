@@ -1,0 +1,95 @@
+@import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+body{
+  background: #f5f6fa;
+
+  min-height: 100vh; /* Set the body height to the full viewport height */
+
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+}
+.exercise-fieldset {
+  display: flex;
+  flex-direction: column;
+
+
+  margin: 10px;
+  position: relative;
+  width: 300px; /* Adjust the width as needed */
+  border:1px solid #999; border-radius:8px; box-shadow:0 0 8px #999;padding:6px;
+  width: 800px;
+}
+
+.exercise-fieldset legend {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.add-button,
+.remove-button {
+  position: absolute;
+  top: 5px; /* Adjust the spacing from the top as needed */
+  right: 5px; /* Adjust the spacing from the right as needed */
+}
+
+.remove-button {
+  top: 5px; /* Adjust the spacing from the top as needed */
+  right: 40px; /* Adjust the spacing from the right as needed */
+
+}
+
+.circle-icon1 {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #f00505;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.circle-icon {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #32f40b;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Style for the icon */
+.circle-icon i {
+  font-size: 20px; /* Adjust the icon size as needed */
+}
+
+.circle-button{
+  border:none;
+  background-color: transparent;
+}
+
+.example-full-width{
+  margin-left: 40px;
+}
+.calendar-toggle {
+  float: right;
+
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn{
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+::placeholder {
+  color: #8e8e8e;
+
+}
+

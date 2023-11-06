@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 import tn.gymapp.Entities.ImageResponse;
 import tn.gymapp.Entities.User;
+import tn.gymapp.Entities.Workout;
+import tn.gymapp.Services.ExerciceService;
 import tn.gymapp.Services.FileService;
 import tn.gymapp.Services.UserService;
 import tn.gymapp.Services.WorkoutService;
@@ -38,6 +40,9 @@ public class UserController {
 	
 	@Autowired
 	private WorkoutService workoutService;
+	
+	@Autowired
+	private ExerciceService exerciceService;
 	
 	
 	 @PostMapping("/uploadimage")
@@ -80,6 +85,26 @@ public class UserController {
 	 @GetMapping("/WorkoutsDate")
 	 public List<Workoutevent> getWorkoutsDate(@RequestParam("id") long id) {
 		 return workoutService.getWorkoutsDate(id);
+	 }
+	 
+	 @PostMapping("/addWorkout")
+	 public Workout addWorkout(@RequestBody Workout workout,@RequestParam("id") long id) {
+		 return workoutService.AddWorkout(workout, id); 
+				 }
+	 
+	 @GetMapping("/loadBodyPart")
+	 public List<String> loadBodyPart(){
+		 return exerciceService.LoadBodyPart();
+	 }
+	 
+	 @GetMapping("/loadMuscleByBodyPart")
+	 public List<String> loadMuscleByBodyPart(@RequestParam("part") String label){
+		 return exerciceService.LoadMuscleByBodyPart(label);
+	 }
+	 
+	 @GetMapping("/loadExercicesByMuscle")
+	 public List<String> loadExercicesByMuscle(@RequestParam("muscle") String label){
+		 return exerciceService.LoadExercicesByMuscle(label);
 	 }
 
 }

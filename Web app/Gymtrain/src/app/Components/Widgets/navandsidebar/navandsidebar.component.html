@@ -11,7 +11,7 @@
       <li><a href="#">Contact us</a></li>
     </ul>
   </div>
-  <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt="" (click)="toggleDropdown()">
+  <div class="header_img"> <img [src]="image" alt="" (click)="toggleDropdown()">
     <ul class="dropdown-list" *ngIf="isDropdownOpen">
       <li><a href="#"><i class="fa-solid fa-user"></i> Profile</a></li>
       <li><a href=""><i class="fa-solid fa-gear"></i> Setting</a></li>
@@ -27,7 +27,7 @@
 
         <a  class="nav_link_menu ">  <i class='bx bx-menu' id="header-toggle"> </i><span class="nav_name">Menu</span> </a>
         <a  class="nav_link active" routerLink="profile"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-        <a  class="nav_link" routerLink="Calender"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
+        <a  class="nav_link" routerLink="New"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
         <a href="#" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span> </a>
         <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a>
         <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>

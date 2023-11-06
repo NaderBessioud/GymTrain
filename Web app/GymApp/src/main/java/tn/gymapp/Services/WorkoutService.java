@@ -3,16 +3,22 @@ package tn.gymapp.Services;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import jakarta.transaction.Transactional;
+import tn.gymapp.Entities.Bodypart;
+import tn.gymapp.Entities.Exercice;
+import tn.gymapp.Entities.Muscle;
 import tn.gymapp.Entities.TypeWorkout;
 import tn.gymapp.Entities.User;
 import tn.gymapp.Entities.Workout;
+import tn.gymapp.Repositories.BodyPartRep;
+import tn.gymapp.Repositories.ExerciceRep;
+import tn.gymapp.Repositories.MuscleRep;
 import tn.gymapp.Repositories.UserRep;
 import tn.gymapp.Repositories.WorkoutRep;
 import tn.gymapp.dto.Workoutevent;
@@ -26,15 +32,49 @@ public class WorkoutService {
 	
 	@Autowired
 	private UserRep userRep;
+	
+	@Autowired
+	private ExerciceRep exerciceRep;
+	
+	@Autowired
+	private BodyPartRep bodyPartRep;
+	
+	@Autowired
+	private MuscleRep muscleRep;
 
 	public Workout findByid(long id) {
 		return workrep.findById(id).get();
 	}
 
 
-	public Workout AddWorkout(Workout w) {
+	@Transactional
+	public Workout AddWorkout(Workout w,long id) {
+		System.out.println(w.getExercices());
+		List<Exercice> wexs=new ArrayList<>();
+		User user=userRep.findById(id).get();
+		if(user.getWorkouts() == null) {
+			user.setWorkouts(new HashSet<>());
+		}
+		w.setUserw(user);
+		Workout workout= workrep.save(w);
+		user.getWorkouts().add(w);
+		userRep.save(user);
+	for (Exercice ex:w.getExercices()) {
+		Bodypart bodypart=bodyPartRep.findByLabel(ex.getMuscle().getBodypart().getLabel());
+		Muscle mu = muscleRep.findByLabel(ex.getMuscle().getLabel());
+		mu.setBodypart(bodypart);
+		ex.setMuscle(mu);
+		mu.getExercicesm().add(ex);
+		ex.setWorkout(workout);
+		exerciceRep.save(ex);
+		muscleRep.save(mu);
+		wexs.add(ex);
+	}
 		
-		return workrep.save(w);
+	workout.setExercices(new HashSet<>());
+	workout.getExercices().addAll(wexs);
+	  workrep.save(workout);
+		  return workout;
 	}
 
 	

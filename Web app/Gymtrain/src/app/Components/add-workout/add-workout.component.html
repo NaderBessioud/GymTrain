@@ -1,0 +1,211 @@
+<body>
+<div class="container1">
+  <form [formGroup]="workoutForm">
+    <div>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Title</mat-label>
+        <input class="input_panel"  matInput  formControlName="title" required type="text"  placeholder="title" [(ngModel)]="workout.title"   >
+        <mat-error *ngIf="workoutForm.get('title')?.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Type</mat-label>
+        <mat-select  [(ngModel)]="workout.type"    formControlName="type">
+          <mat-option *ngFor="let type of types" [value]="type" style="background-color: white;color: black" >
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field color="accent" class="example-full-width" [style.height.px]=30>
+        <mat-label>date</mat-label>
+        <div class="input-container" style="height: 20px">
+          <input [min]="currentDate" matInput [(ngModel)]="workout.date" formControlName="date" [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        </div>
+        <mat-hint style="color:#8e8e8e">MM/DD/YYYY</mat-hint>
+        <mat-datepicker #picker1 ></mat-datepicker>
+        <mat-error *ngIf="workoutForm.get('date')?.hasError('required')">
+          Date is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 20px" >
+      <fieldset  class="exercise-fieldset">
+        <legend>Exercise 1</legend>
+        <div >
+          <form [formGroup]="exerciceForm">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Body part</mat-label>
+                <mat-select  [(ngModel)]="exs[0].muscle.bodypart.label"    formControlName="bodypart" (selectionChange)="LoadMusclesByBodyPart($event)">
+                  <mat-option *ngFor="let part of BodyParts" [value]="part" style="background-color: white;color: black" >
+                    {{part}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Muscle</mat-label>
+                <mat-select  [(ngModel)]="exs[0].muscle.label"    formControlName="muscle" (selectionChange)="LoadExercicesByMuscle($event)">
+                  <mat-option *ngFor="let muscle of Muscles" [value]="muscle" style="background-color: white;color: black" >
+                    {{muscle}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Exercice name</mat-label>
+                <mat-select  [(ngModel)]="exs[0].label"    formControlName="label">
+                  <mat-option *ngFor="let ex of ExercicesByMuscle" [value]="ex" style="background-color: white;color: black" >
+                    {{ex}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+              <mat-form-field class="example-full-width"  fxFlex="33%">
+                <mat-label>Sets</mat-label>
+                <input class="input_panel"  matInput  formControlName="sets" required type="number"  placeholder="nbre sets" [(ngModel)]="exs[0].nbsets"  >
+
+                <mat-error *ngIf="exerciceForm.get('sets')?.hasError('required')">
+                  Number of sets is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="example-full-width" fxFlex="33%" >
+                <mat-label>Rep Per Set</mat-label>
+                <input class="input_panel"  matInput  formControlName="rep" required type="number"  placeholder="nbre rep" [(ngModel)]="exs[0].nberep"  >
+
+                <mat-error *ngIf="exerciceForm.get('rep')?.hasError('required')">
+                  Number of Rep is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="example-full-width" fxFlex="33%" >
+                <mat-label>Resistance</mat-label>
+                <input class="input_panel"  matInput  formControlName="resistance" required type="number"  placeholder="resistance" [(ngModel)]="exs[0].resistance"  >
+
+                <mat-error *ngIf="exerciceForm.get('resistance')?.hasError('required')">
+                  Resistance is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+
+        <button mat-button class="circle-button add-button" (click)="addExercise()">
+          <div class="circle-icon">
+            <i class="fa-solid fa-plus" style="color: #32f40b;"></i>
+          </div>
+        </button>
+
+      </fieldset>
+    </div>
+
+    <div *ngFor="let exercise of exercises.controls; let i = index">
+      <fieldset  class="exercise-fieldset">
+        <legend>Exercise {{ i + 2 }}</legend>
+        <div >
+          <form [formGroup]="exerciceForm">
+
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Body part</mat-label>
+                <mat-select  [(ngModel)]="exs[i+1].muscle.bodypart.label"    formControlName="bodypart{{i}}" (selectionChange)="LoadMusclesByBodyPart($event)">
+                  <mat-option *ngFor="let part of BodyParts" [value]="part" style="background-color: white;color: black" >
+                    {{part}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Muscle</mat-label>
+                <mat-select  [(ngModel)]="exs[i+1].muscle.label"    formControlName="muscle{{i}}" (selectionChange)="LoadExercicesByMuscle($event)">
+                  <mat-option *ngFor="let muscle of Muscles" [value]="muscle" style="background-color: white;color: black" >
+                    {{muscle}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field fxFlex="33%" class="example-full-width">
+                <mat-label>Exercice name</mat-label>
+                <mat-select  [(ngModel)]="exs[i+1].label"    formControlName="label{{i}}">
+                  <mat-option *ngFor="let ex of ExercicesByMuscle" [value]="ex" style="background-color: white;color: black" >
+                    {{ex}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+              <mat-form-field class="example-full-width"fxFlex="33%"  >
+                <mat-label>Sets</mat-label>
+                <input class="input_panel"  matInput  formControlName="sets{{i}}" required type="number"  placeholder="nbre sets" [(ngModel)]="exs[i+1].nbsets"  >
+
+                <mat-error *ngIf="exerciceForm.get('sets'+i)?.hasError('required')">
+                  Number of sets is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="example-full-width" fxFlex="33%" >
+                <mat-label>Rep Per Set</mat-label>
+                <input class="input_panel"  matInput  formControlName="rep{{i}}" required type="number"  placeholder="nbre rep" [(ngModel)]="exs[i+1].nberep"  >
+
+                <mat-error *ngIf="exerciceForm.get('rep'+i)?.hasError('required')">
+                  Number of Rep is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field class="example-full-width" fxFlex="33%" >
+                <mat-label>Resistance</mat-label>
+                <input class="input_panel"  matInput  formControlName="resistance{{i}}" required type="number"  placeholder="resistance" [(ngModel)]="exs[i+1].resistance"  >
+
+                <mat-error *ngIf="exerciceForm.get('resistance'+i)?.hasError('required')">
+                  Resistance is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </form>
+
+        </div>
+
+        <button mat-button class="circle-button remove-button" (click)="removeExercise(i)">
+          <div class="circle-icon1">
+            <i class="fa-solid fa-minus" style="color: #f00505;"></i>
+          </div>
+        </button>
+        <button mat-button class="circle-button add-button" (click)="addExercise()">
+          <div class="circle-icon">
+            <i class="fa-solid fa-plus" style="color: #32f40b;"></i>
+          </div>
+        </button>
+      </fieldset>
+    </div>
+
+
+    <button type="button" class="btn btn-primary" (click)="submitWorkout()">Submit</button>
+  </form>
+</div>
+</body>

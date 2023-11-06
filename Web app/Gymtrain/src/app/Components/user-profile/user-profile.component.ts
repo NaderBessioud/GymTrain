@@ -19,10 +19,10 @@ export class UserProfileComponent implements OnInit {
   form: FormGroup=new FormBuilder().group({});
   formP: FormGroup=new FormBuilder().group({});
   phoneNumberForm: FormGroup=new FormBuilder().group({});
-  foods=["men","women"]
+  genders=["men","women"]
   dbImage: any;
   user:User=new User();
-
+  currentDate:Date=new Date()
   cpass:string="";
   npass:string="";
   cnpass:string="";
@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
   matchPass:boolean=false;
   PassMatch:string="2 password does not match";
   isButtonDisabled = false
-  isSidebarOpen: boolean=true;
+  fullName:string=""
 
 
   constructor(private fb:FormBuilder,private renderer: Renderer2,
@@ -42,13 +42,10 @@ export class UserProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.sidebarService.getSidebarOpen().subscribe((open) => {
-      this.isSidebarOpen = open;
-      // You can perform actions in response to the sidebar state change here.
-      console.log('Sidebar is now', open ? 'open' : 'closed');
-    });
+
     this.service.GetUserById(sessionStorage.getItem("id")).subscribe(u=>{
       this.user=u
+      this.fullName=u.firstName+" "+u.lastName
       this.downloadImage(u.image);
     })
 

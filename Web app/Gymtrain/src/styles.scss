@@ -13,10 +13,12 @@ body {
   color: #8e8e8e !important;
 }
 
+
 .mat-form-field-underline {
   background-color: #8e8e8e !important;;
 
 }
+
 
 
 
@@ -55,6 +57,15 @@ body {
 
 .mat-select-value {
   color: black !important;
+}
+
+
+.mat-datepicker-toggle .mat-datepicker-toggle-default-icon {
+  color: #707070; /* Change this to the color you want when inactive */
+}
+
+.mat-datepicker-toggle.mat-datepicker-toggle-active .mat-datepicker-toggle-default-icon {
+  color: #b0bec5; /* Change this to the color you want when clicked (active) */
 }
 
 

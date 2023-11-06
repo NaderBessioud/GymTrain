@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef, } from '@angular/core';
 import {SideBarService} from "../../../Services/side-bar.service";
 import {UserProfileComponent} from "../../user-profile/user-profile.component";
 import {AuthenticationComponent} from "../../authentication/authentication.component";
+import {UserService} from "../../../Services/user.service";
 
 
 
@@ -14,11 +15,10 @@ export class NavandsidebarComponent implements OnInit {
 
   sidebarOpen: boolean=true;
   currentComponent: any = null;
+  image:any;
   constructor(private renderer: Renderer2, private el: ElementRef,
-              private sidebarService: SideBarService) {
-    this.sidebarService.getSidebarOpen().subscribe((open) => {
-      this.sidebarOpen = open;
-    });
+              private service:UserService) {
+
   }
   isDropdownOpen: boolean = false;
 
@@ -27,6 +27,9 @@ export class NavandsidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.GetUserById(sessionStorage.getItem("id")).subscribe(u=>{
+      this.image=u.image
+    })
     const toggle = this.el.nativeElement.querySelector('#header-toggle');
     const nav = this.el.nativeElement.querySelector('#nav-bar');
     const bodypd = this.el.nativeElement.querySelector('#body-pd');

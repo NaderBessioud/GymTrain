@@ -1,3 +1,5 @@
+import {Exercice} from "./exercice";
+
 export class Workout {
 
   idw:any;
@@ -5,4 +7,5 @@ export class Workout {
   date:any;
   type:any;
   skipdate:any;
+  exercices:Exercice[]=[]
 }

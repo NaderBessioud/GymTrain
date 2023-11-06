@@ -5,6 +5,7 @@ import {HomeComponent} from "./Components/home/home.component";
 import {NavandsidebarComponent} from "./Components/Widgets/navandsidebar/navandsidebar.component";
 import {AuthenticationComponent} from "./Components/authentication/authentication.component";
 import {WorkoutsComponent} from "./Components/workouts/workouts.component";
+import {AddWorkoutComponent} from "./Components/add-workout/add-workout.component";
 
 const routes: Routes = [
 
@@ -17,6 +18,7 @@ const routes: Routes = [
     children: [
       { path: 'profile', component: UserProfileComponent },
       { path: 'Calender', component: WorkoutsComponent },
+      { path: 'New', component: AddWorkoutComponent },
     ],
   },
 

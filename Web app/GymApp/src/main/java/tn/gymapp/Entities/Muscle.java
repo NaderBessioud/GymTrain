@@ -1,6 +1,7 @@
 package tn.gymapp.Entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -10,45 +11,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-
+import lombok.ToString;
 @Data
 @RequiredArgsConstructor
 @Entity
-public class Exercice  implements Serializable{
+public class Muscle implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ide", nullable = false)
-    private Long ide;
+    @Column(name = "idm", nullable = false)
+    private Long idm;
 	@Column(name="label")
 	private String label;
 	@Column(name="description")
 	private String description;
-	@Column(name="nbsets")
-	private int nbsets;
-	@Column(name="nberep")
-	private int nberep;
-	@Column(name="resistance")
-	private float resistance;
-	
-
-	
 	
 	@ManyToOne
-	  @JsonIgnore
-	private Workout workout;
+	private Bodypart bodypart;
 	
-	@ManyToOne
-	
-	private Muscle muscle;
-
-
-	
-	
-	
+	@OneToMany(mappedBy = "muscle")
+	@ToString.Exclude // Exclude from toString
+    @EqualsAndHashCode.Exclude // Exclude from equals and hashCode
+    @JsonIgnore
+	private Set<Exercice> exercicesm;
 
 }

@@ -14,19 +14,19 @@
                   <div class="image-container">
                     <div class="border">
 
-                      <img [src]="dbImage" alt="https://bootdey.com/img/Content/avatar/avatar7.png">
+                      <img [src]="dbImage" alt="">
                     </div>
                       <i class="camera-icon fas fa-camera" (click)="fileInput.click()"></i>
                   </div>
                   <input type="file" #fileInput accept=".png,.jpg,.jpeg" style="display: none;" (change)="onimageChanged($event)">
                 </div>
 
-                <h5 class="user-name">Yuki Hayashi</h5>
-                <h6 class="user-email">yuki@Maxwell.com</h6>
+                <h5 class="user-name">{{fullName}}</h5>
+                <h6 class="user-email">{{user.email}}</h6>
               </div>
               <div class="about">
                 <h5>About</h5>
-                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                <p>{{user.aboutMe}}</p>
               </div>
             </div>
           </div>
@@ -139,8 +139,8 @@
                                 <mat-form-field>
                                   <mat-label>gender</mat-label>
                                   <mat-select  [(ngModel)]="user.gender"    formControlName="gender">
-                                    <mat-option *ngFor="let food of foods" [value]="food" style="background-color: white;color: black" >
-                                      {{food}}
+                                    <mat-option *ngFor="let gender of genders" [value]="gender" style="background-color: white;color: black" >
+                                      {{gender}}
                                     </mat-option>
                                   </mat-select>
                                 </mat-form-field>
@@ -193,9 +193,11 @@
 
                                 <mat-form-field color="accent">
                                   <mat-label>birth date</mat-label>
-                                  <input matInput [(ngModel)]="user.birthday" formControlName="birthdate" [matDatepicker]="picker1">
+                                  <div class="input-container" style="height: 20px">
+                                    <input [max]="currentDate" matInput [(ngModel)]="user.birthday" formControlName="birthdate" [matDatepicker]="picker1">
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                  </div>
                                   <mat-hint>MM/DD/YYYY</mat-hint>
-                                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
                                   <mat-datepicker #picker1></mat-datepicker>
                                   <mat-error *ngIf="form.get('birthdate')?.hasError('required')">
                                     Birth date is <strong>required</strong>
@@ -213,7 +215,7 @@
 
                                 <mat-form-field class="example-full-width" [style.width.px]=500  >
                                   <mat-label>About</mat-label>
-                                  <textarea class="input_panel"  matInput  formControlName="aboutMe" required rows="5"   placeholder="Your Weight"  [(ngModel)]="user.aboutMe" ></textarea>
+                                  <textarea class="input_panel"  matInput  formControlName="aboutMe" required rows="5"   placeholder="About you"  [(ngModel)]="user.aboutMe" ></textarea>
 
                                   <mat-error *ngIf="form.get('aboutMe')?.hasError('required')">
                                     Phone is <strong>required</strong>

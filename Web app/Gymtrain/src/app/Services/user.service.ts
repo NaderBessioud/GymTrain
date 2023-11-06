@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {ImageResponse} from "../Models/image-response";
 import {WorkoutsResponse} from "../Models/workouts-response";
 import {Workoutevent} from "../Models/workoutevent";
+import {Workout} from "../Models/workout";
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,22 @@ export class UserService {
 
   getWorkoutsDate(id:any):Observable<Workoutevent[]>{
     return this.http.get<Workoutevent[]>(this.URL+"WorkoutsDate",{params:{id:id}})
+  }
+
+  addWorkout(workout:Workout,id:any):Observable<Workout>{
+    return this.http.post<Workout>(this.URL+"addWorkout",workout,{params:{id:id}})
+  }
+
+  LoadBodyPart():Observable<string[]>{
+    return this.http.get<string[]>(this.URL+"loadBodyPart");
+  }
+
+  LoaMuscleBydBodyPart(part:string):Observable<string[]>{
+    return this.http.get<string[]>(this.URL+"loadMuscleByBodyPart",{params:{part:part}});
+  }
+
+  LoadExercicesByMuscle(muscle:string):Observable<string[]>{
+    return this.http.get<string[]>(this.URL+"loadExercicesByMuscle",{params:{muscle:muscle}});
   }
 
 

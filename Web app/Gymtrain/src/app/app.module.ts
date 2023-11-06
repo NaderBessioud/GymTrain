@@ -22,6 +22,8 @@ import {WorkoutsComponent} from "./Components/workouts/workouts.component";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
+import { AddWorkoutComponent } from './Components/add-workout/add-workout.component';
+import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
     UserProfileComponent,
     PhoneNumberDirective,
     WorkoutsComponent,
+    AddWorkoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +46,9 @@ import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
     MatInputModule,
     MatIconModule,
     MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatRippleModule,
     HttpClientModule,
     FormsModule,
     MatSelectModule,
