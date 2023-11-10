@@ -1,0 +1,90 @@
+<body>
+<div class="container2">
+  <div class="header1">
+    <button mat-button class="mat-button1" [matMenuTriggerFor]="bodypart">
+
+      <div class=valign-center>
+        <span>Body part</span>
+        <i class="material-icons">arrow_drop_down</i>
+      </div>
+
+    </button>
+  </div>
+
+  <mat-menu #bodypart="matMenu" xPosition="after">
+    <button mat-menu-item *ngFor="let part of BodyParts" (click)="updateSelectedBodyPart(part)" (mouseover)="updateSelectedBodyPart(part)" [matMenuTriggerFor]="musclemenu" >
+      {{ part.label }}
+    </button>
+  </mat-menu>
+
+  <mat-menu #musclemenu="matMenu">
+    <button mat-menu-item  *ngFor="let item of Muscles" (click)="getExercicesByMuscle(item)">
+      {{ item.label }}
+    </button>
+  </mat-menu>
+
+  <div *ngIf="showExercice==true">
+    <div class="image-grid">
+      <div *ngFor="let ex of exerices; let i = index" >
+        <div *ngIf="i % 2 ==0" style="display: flex">
+          <div class="image-item" *ngIf="i < columnsToShow*2">
+            <img [src]="ex.image.image" alt="Image {{i + 1}}" (click)="openModal(ex.ide)">
+            <h3 (click)="openModal(ex.ide)">{{ex.label}}</h3>
+          </div>
+
+          <div class="image-item" *ngIf="i< columnsToShow*2 && (i + 1) < exerices.length">
+            <img [src]="exerices[i + 1].image.image" alt="Image {{i + 1}}" (click)="openModal(exerices[i + 1].ide)">
+            <h3 (click)="openModal(exerices[i + 1].ide)">{{exerices[i + 1].label}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="button" (click)="showMoreColumns()" *ngIf="columnsToShow < imageSources.length /2  ">
+      Show More
+    </button>
+
+  </div>
+
+  <div *ngIf="showExercice==false" style="flex: 1">
+    <carousel [noPause]="false">
+      <slide>
+        <img src="assets/images/carosel1.jpg" alt="First slide" style="display: block; width: 100%;">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="title">Unleash Your Potential</h3>
+          <p>Embrace the challenge, push your limits, and discover the strength within you. Your journey to a stronger, healthier you starts now</p>
+        </div>
+      </slide>
+      <slide>
+        <img src="assets/images/motif2.jpg" alt="Second slide" style="display: block; width: 100%;">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="title">Rise and Grind</h3>
+          <p>Every workout is a step towards your goals. Wake up, lace up, and grind. Success is earned, not given.</p>
+        </div>
+      </slide>
+      <slide>
+        <img src="assets/images/carosel3.jpg" alt="Third slide" style="display: block;width: 100%">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="title">Transform Your Body, Transform Your Life</h3>
+          <p>Commit to the process, and watch your body transform. A healthy body leads to a confident mind. It's not just a workout; it's a lifestyle.</p>
+        </div>
+      </slide>
+      <slide>
+        <img src="assets/images/carosel4.jpg" alt="Third slide" style="display: block;width: 100%">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="title">Consistency is Key</h3>
+          <p>Small steps, taken consistently, lead to big results. Stay committed, stay focused. Your dedication today shapes your success tomorrow.</p>
+        </div>
+      </slide>
+      <slide>
+        <img src="assets/images/carosel5.jpg" alt="Third slide" style="display: block;width: 100%">
+        <div class="carousel-caption d-none d-md-block">
+          <h3 class="title">Elevate Your Fitness Journey</h3>
+          <p>Elevate your fitness game and rise above your excuses. You are stronger than you think. Challenge yourself, and let every workout be a victory.</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>
+
+</div>
+
+</body>

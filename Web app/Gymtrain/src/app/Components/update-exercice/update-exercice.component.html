@@ -1,0 +1,36 @@
+<div class="container1">
+  <div>
+<div class="header">
+  <h3>{{exercice.label}}</h3>
+</div>
+  <div class="container2">
+  <form [formGroup]="exerciceForm" >
+<div>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Sets</mat-label>
+        <input class="input_panel"  matInput  formControlName="sets" readonly type="number"  placeholder="nbre sets" [(ngModel)]="exercice.nbsets"  >
+
+
+      </mat-form-field>
+</div>
+<div>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Rep Per Set</mat-label>
+        <input class="input_panel"  matInput  formControlName="rep" readonly type="number"  placeholder="nbre rep" [(ngModel)]="exercice.nberep"  >
+
+
+        </mat-form-field>
+</div>
+<div>
+      <mat-form-field class="example-full-width"  >
+        <mat-label>Resistance</mat-label>
+        <input class="input_panel"  matInput  formControlName="resistance" readonly type="number"  placeholder="resistance" [(ngModel)]="exercice.resistance"  >
+
+
+      </mat-form-field>
+</div>
+  <button type="button" class="btn btn-primary" (click)="closeModal()">close</button>
+  </form>
+  </div>
+  </div>
+</div>

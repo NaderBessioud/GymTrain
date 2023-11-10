@@ -78,7 +78,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   checkemail(){
-    console.log("its work")
+
 this.authservice.Checkemail(this.user.email).subscribe(e=>{
   console.log(e)
   if(e){

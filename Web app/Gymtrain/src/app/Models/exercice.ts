@@ -1,5 +1,4 @@
-import {Muscle} from "./muscle";
-import {Bodypart} from "./bodypart";
+
 
 export class Exercice {
 
@@ -9,7 +8,9 @@ export class Exercice {
   nbsets:any;
   nberep:any;
   resistance:any;
-  muscle:Muscle=new Muscle();
+  image:any
+  muscle:any
+  bodypart:any
 
 
 }

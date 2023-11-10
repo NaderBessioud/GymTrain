@@ -35,16 +35,21 @@ public class Exercice  implements Serializable{
 	@Column(name="resistance")
 	private float resistance;
 	
-
+	@Column(name="image")
+	private String image;
+	@Column(name="muscle")
+	private String muscle;
+	@Column(name="bodypart")
+	private String bodypart;
 	
 	
 	@ManyToOne
 	  @JsonIgnore
 	private Workout workout;
 	
-	@ManyToOne
 	
-	private Muscle muscle;
+	
+	
 
 
 	

@@ -4,7 +4,7 @@ body {
 }
 
 .custom-dialog-panel .mat-dialog-container {
-  padding: 0; /* Remove the default padding */
+  padding: 0;
 }
 
 
@@ -69,3 +69,22 @@ body {
 }
 
 
+.mat-menu-item {
+  display: flex; /* Make items a flex container to align text and arrow horizontally */
+  justify-content: space-between; /* Spread content to the edges */
+
+  /* Optional: Add padding or margins to fine-tune the alignment */
+  padding: 8px 16px; /* Adjust as needed */
+}
+
+/* Style the arrow icon (optional) */
+.mat-menu-item .mat-menu-trigger {
+  margin-left: 8px; /* Adjust the spacing between text and arrow as needed */
+}
+
+/* Remove the default padding on the menu items */
+.mat-menu-content {
+  padding: 0;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

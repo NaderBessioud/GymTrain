@@ -35,6 +35,21 @@ public class FileService {
         }
         return null;
     }
+	
+	public ImageResponse uploadImageExercice(MultipartFile file,String label) {
+        if(file != null && file.getSize() > 0) {
+            try {
+            		
+            	
+                String fileName = "IronWave_"+label ;
+                client.blobName(fileName).buildClient().upload(file.getInputStream(),file.getSize());
+                return new ImageResponse(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     public ImageResponse download(String name) {
         try {

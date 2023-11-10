@@ -1,5 +1,6 @@
+<body style="margin-left: 70px">
 <button type="button" class="btn btn-primary" (click)="parentModal.show()">Change Workout routine</button>
-<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
@@ -78,9 +79,10 @@
   </div>
 </div>
 
-<full-calendar [options]="calendarOptions" style="margin-top: 20px"></full-calendar>
+<full-calendar [options]="calendarOptions" style="margin-top: 20px;max-height: 800px;
+  overflow-y: auto; /"></full-calendar>
 
-<ng-template #template>
+<ng-template #template style="background: #f5f6fa;">
   <div class="modal-header bg-primary text-white">
     <h4 class="modal-title pull-left">Your Workout</h4>
     <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
@@ -91,3 +93,4 @@
     You have {{title}} on {{ start | date}}
   </div>
 </ng-template>
+</body>

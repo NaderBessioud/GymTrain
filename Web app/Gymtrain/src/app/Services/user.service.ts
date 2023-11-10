@@ -4,9 +4,11 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../Models/user";
 import {Observable} from "rxjs";
 import {ImageResponse} from "../Models/image-response";
-import {WorkoutsResponse} from "../Models/workouts-response";
+
 import {Workoutevent} from "../Models/workoutevent";
 import {Workout} from "../Models/workout";
+import {Exercice} from "../Models/exercice";
+
 
 @Injectable({
   providedIn: 'root'
@@ -50,17 +52,23 @@ export class UserService {
     return this.http.post<Workout>(this.URL+"addWorkout",workout,{params:{id:id}})
   }
 
-  LoadBodyPart():Observable<string[]>{
-    return this.http.get<string[]>(this.URL+"loadBodyPart");
+
+
+  getExerciceById(id:any):Observable<Exercice>{
+    return this.http.get<Exercice>(this.URL+"getExerciceById",{params:{id:id}})
+  }
+  updateExercice(ex:Exercice):Observable<Exercice>{
+    return this.http.put<Exercice>(this.URL+"updateExercice",ex)
   }
 
-  LoaMuscleBydBodyPart(part:string):Observable<string[]>{
-    return this.http.get<string[]>(this.URL+"loadMuscleByBodyPart",{params:{part:part}});
+  getAllExercicesByUser(id:any):Observable<Exercice[]>{
+    return this.http.get<Exercice[]>(this.URL+"getAllExercicesByUser",{params:{id:id}})
   }
 
-  LoadExercicesByMuscle(muscle:string):Observable<string[]>{
-    return this.http.get<string[]>(this.URL+"loadExercicesByMuscle",{params:{muscle:muscle}});
+  getAllExercicesByUserAndMuscle(id:any,label:any):Observable<Exercice[]>{
+    return this.http.get<Exercice[]>(this.URL+"getAllExercicesByUserAndMuscle",{params:{id:id,label:label}})
   }
+
 
 
 }

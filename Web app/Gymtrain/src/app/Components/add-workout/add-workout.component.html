@@ -1,4 +1,4 @@
-<body>
+<body style="margin-left: 70px">
 <div class="container1">
   <form [formGroup]="workoutForm">
     <div>
@@ -43,9 +43,9 @@
 
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Body part</mat-label>
-                <mat-select  [(ngModel)]="exs[0].muscle.bodypart.label"    formControlName="bodypart" (selectionChange)="LoadMusclesByBodyPart($event)">
-                  <mat-option *ngFor="let part of BodyParts" [value]="part" style="background-color: white;color: black" >
-                    {{part}}
+                <mat-select  [(ngModel)]="exs[0].bodypart"    formControlName="bodypart">
+                  <mat-option *ngFor="let part of BodyParts" [value]="part.label" style="background-color: white;color: black" >
+                    {{part.label}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -54,10 +54,12 @@
 
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Muscle</mat-label>
-                <mat-select  [(ngModel)]="exs[0].muscle.label"    formControlName="muscle" (selectionChange)="LoadExercicesByMuscle($event)">
-                  <mat-option *ngFor="let muscle of Muscles" [value]="muscle" style="background-color: white;color: black" >
-                    {{muscle}}
+                <mat-select  [(ngModel)]="exs[0].muscle"    formControlName="muscle" >
+
+                  <mat-option *ngFor="let muscle of Muscles[exs[0].bodypart]" [value]="muscle.label" style="background-color: white;color: black" >
+                    {{muscle.label}}
                   </mat-option>
+
                 </mat-select>
               </mat-form-field>
 
@@ -65,9 +67,11 @@
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Exercice name</mat-label>
                 <mat-select  [(ngModel)]="exs[0].label"    formControlName="label">
-                  <mat-option *ngFor="let ex of ExercicesByMuscle" [value]="ex" style="background-color: white;color: black" >
+                  <div *ngIf="exs[0].bodypart != undefined && exs[0].muscle != undefined">
+                  <mat-option *ngFor="let ex of ExercicesByMuscle[exs[0].bodypart][exs[0].muscle]" [value]="ex" style="background-color: white;color: black" >
                     {{ex}}
                   </mat-option>
+                  </div>
                 </mat-select>
               </mat-form-field>
 
@@ -126,9 +130,9 @@
 
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Body part</mat-label>
-                <mat-select  [(ngModel)]="exs[i+1].muscle.bodypart.label"    formControlName="bodypart{{i}}" (selectionChange)="LoadMusclesByBodyPart($event)">
-                  <mat-option *ngFor="let part of BodyParts" [value]="part" style="background-color: white;color: black" >
-                    {{part}}
+                <mat-select  [(ngModel)]="exs[i+1].bodypart"    formControlName="bodypart{{i}}" >
+                  <mat-option *ngFor="let part of BodyParts" [value]="part.label" style="background-color: white;color: black" >
+                    {{part.label}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -137,9 +141,9 @@
 
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Muscle</mat-label>
-                <mat-select  [(ngModel)]="exs[i+1].muscle.label"    formControlName="muscle{{i}}" (selectionChange)="LoadExercicesByMuscle($event)">
-                  <mat-option *ngFor="let muscle of Muscles" [value]="muscle" style="background-color: white;color: black" >
-                    {{muscle}}
+                <mat-select  [(ngModel)]="exs[i+1].muscle"    formControlName="muscle{{i}}" >
+                  <mat-option *ngFor="let muscle of Muscles[exs[i+1].bodypart]" [value]="muscle.label" style="background-color: white;color: black" >
+                    {{muscle.label}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -148,9 +152,11 @@
               <mat-form-field fxFlex="33%" class="example-full-width">
                 <mat-label>Exercice name</mat-label>
                 <mat-select  [(ngModel)]="exs[i+1].label"    formControlName="label{{i}}">
-                  <mat-option *ngFor="let ex of ExercicesByMuscle" [value]="ex" style="background-color: white;color: black" >
+                  <div *ngIf="exs[i+1].bodypart != undefined && exs[i+1].muscle != undefined">
+                  <mat-option *ngFor="let ex of ExercicesByMuscle[exs[i+1].bodypart][exs[i+1].muscle]" [value]="ex" style="background-color: white;color: black" >
                     {{ex}}
                   </mat-option>
+                  </div>
                 </mat-select>
               </mat-form-field>
 

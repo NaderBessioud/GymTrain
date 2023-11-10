@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {Workout} from "../../Models/workout";
 import {UserService} from "../../Services/user.service";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Exercice} from "../../Models/exercice";
 import {ex} from "@fullcalendar/core/internal-common";
+import {DataService} from "../../Services/data.service";
 
 @Component({
   selector: 'app-add-workout',
@@ -14,15 +15,21 @@ export class AddWorkoutComponent implements OnInit {
   workout:Workout=new Workout()
   types:any=["Push","Pull","Legs"]
   exs:Exercice[]=[]
-  BodyParts:string[]=[]
-  Muscles:string[]=[]
-  ExercicesByMuscle:string[]=[]
+  BodyParts:any
+  Muscles:{ [key: string]: any[] } = {}
+  ExercicesByMuscle:{ [key: string]: { [key: string]: string[] } } = {};
   workoutForm: FormGroup=new FormBuilder().group({});
   exerciceForm: FormGroup=new FormBuilder().group({});
   exercises: FormArray=new FormBuilder().array([]);
   currentFieldsetIndex: number = 0;
   currentDate: Date = new Date()
-  constructor(private service:UserService,private fb: FormBuilder) {
+  jsonData:any
+  part:string=""
+  bodypart:string=""
+  muscle1:any
+  constructor(private service:UserService,private fb: FormBuilder,
+              private dataService:DataService,
+              private renderer: Renderer2) {
 
   }
   getexercises(): FormArray {
@@ -78,7 +85,10 @@ export class AddWorkoutComponent implements OnInit {
   }
 
   addExercise() {
+    const currentBodyHeight = document.body.offsetHeight;
+    const newBodyHeight = currentBodyHeight + 200;
 
+    this.renderer.setStyle(document.body, 'height', `${newBodyHeight}px`);
     this.exs.push(new Exercice())
 
     this.exercises.push(this.createExerciseGroup(this.exs.length-2));
@@ -86,6 +96,10 @@ export class AddWorkoutComponent implements OnInit {
   }
 
   removeExercise(index: number) {
+    const currentBodyHeight = document.body.offsetHeight;
+    const newBodyHeight = currentBodyHeight - 200;
+
+    this.renderer.setStyle(document.body, 'height', `${newBodyHeight}px`);
     this.exs.splice(index+1,1)
     this.exercises.removeAt(index);
   }
@@ -97,21 +111,62 @@ export class AddWorkoutComponent implements OnInit {
   }
 
   LoadBodyPart(){
-    this.service.LoadBodyPart().subscribe(parts=>{
-      this.BodyParts=parts
+    this.dataService.getJsonData().subscribe(data=>{
+
+      this.jsonData = data
+      this.BodyParts=data.bodyParts
+      for(const part of this.BodyParts){
+        this.ExercicesByMuscle[part.label]={}
+
+        if (!this.ExercicesByMuscle[part.label]) {
+          this.ExercicesByMuscle[part.label] = {};
+
+        }
+        const selectedBodyPartData = this.jsonData.bodyParts.find((bodyPart:any) => bodyPart.label === part.label);
+
+        this.Muscles[part.label] = selectedBodyPartData.muscles
+
+
+        for(const m of selectedBodyPartData.muscles){
+          if (!this.ExercicesByMuscle[part.label][m.label]) {
+            this.ExercicesByMuscle[part.label][m.label] = [];
+          }
+
+          const selectedMuscleData = selectedBodyPartData.muscles.find((muscle:any) => muscle.label === m.label);
+          this.ExercicesByMuscle[part.label][m.label]=selectedMuscleData.exercises
+        }
+      }
     })
+
   }
 
   LoadMusclesByBodyPart(event:any){
-    this.service.LoaMuscleBydBodyPart(event.source.value).subscribe(muscles=>{
-      this.Muscles=muscles;
-    })
+
+    this.bodypart= event.source.value.label
+    const selectedBodyPartData = this.jsonData.bodyParts.find((bodyPart:any) => bodyPart.label === event.source.value.label);
+    if (selectedBodyPartData) {
+      // Access the muscles of the selected body part
+      this.Muscles = selectedBodyPartData.muscles;
+
+    }
   }
 
   LoadExercicesByMuscle(event:any){
-    this.service.LoadExercicesByMuscle(event.source.value).subscribe(exercices=>{
-      this.ExercicesByMuscle=exercices
-    })
+
+    const selectedBodyPartData = this.jsonData.bodyParts.find((bodyPart:any) => bodyPart.label === this.bodypart );
+    if (selectedBodyPartData) {
+
+      // Access the muscles of the selected body part
+
+      const selectedMuscleData = selectedBodyPartData.muscles.find((muscle:any) => muscle.label === event.source.value.label);
+
+      if (selectedMuscleData) {
+
+        this.ExercicesByMuscle=selectedMuscleData.exercises
+        console.log(this.ExercicesByMuscle)
+      }
+    }
+
   }
 
 }

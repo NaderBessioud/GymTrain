@@ -25,6 +25,12 @@ import {MatDatepicker, MatDatepickerModule} from "@angular/material/datepicker";
 import { AddWorkoutComponent } from './Components/add-workout/add-workout.component';
 import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
 
+import { ExercicesComponent } from './Components/exercices/exercices.component';
+import {UpdateExerciceComponent} from "./Components/update-exercice/update-exercice.component";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatButtonModule} from "@angular/material/button";
+import {CarouselModule} from "ngx-bootstrap/carousel";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +42,8 @@ import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
     PhoneNumberDirective,
     WorkoutsComponent,
     AddWorkoutComponent,
+    UpdateExerciceComponent,
+    ExercicesComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,13 +56,16 @@ import {MatNativeDateModule, MatRippleModule} from "@angular/material/core";
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatMenuModule,
     MatRippleModule,
     HttpClientModule,
     FormsModule,
     MatSelectModule,
     FullCalendarModule,
+    CarouselModule,
 
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MatButtonModule
 
   ],
   providers: [{

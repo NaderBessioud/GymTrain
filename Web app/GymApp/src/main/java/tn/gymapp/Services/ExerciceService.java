@@ -2,16 +2,17 @@ package tn.gymapp.Services;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import tn.gymapp.Entities.Bodypart;
 import tn.gymapp.Entities.Exercice;
-import tn.gymapp.Entities.Muscle;
-import tn.gymapp.Repositories.BodyPartRep;
+import tn.gymapp.Entities.User;
+import tn.gymapp.Entities.Workout;
 import tn.gymapp.Repositories.ExerciceRep;
-import tn.gymapp.Repositories.MuscleRep;
+import tn.gymapp.Repositories.UserRep;
+
 
 @Service
 public class ExerciceService {
@@ -20,12 +21,9 @@ public class ExerciceService {
 	private ExerciceRep exerciceRep;
 	
 	@Autowired
-	private BodyPartRep bodyPartRep;
+	private UserRep userRep;
 	
-	@Autowired
-	private MuscleRep muscleRep;
-	
-	public Exercice findByid(long id) {
+	public Exercice getExerciceById(long id) {
 		return exerciceRep.findById(id).get();
 	}
 
@@ -54,26 +52,55 @@ public class ExerciceService {
 	}
 	
 	
-	public List<String> LoadBodyPart(){
-		List<String> result = new ArrayList<>();
-		for(Bodypart bp : bodyPartRep.findAll())
-			result.add(bp.getLabel());
+	public List<Exercice> getAllExericesByUser(long id){
+		List<Exercice> result = new ArrayList<Exercice>();
+		User user = userRep.findById(id).get();
+		for(Workout w : user.getWorkouts()) {
+			for(Exercice ex : w.getExercices()) {
+				OptionalInt indexOptional = IntStream.range(0, result.size())
+					    .filter(i -> result.get(i).getLabel().equals(ex.getLabel()))
+					    .findFirst();
+				if (indexOptional.isPresent()) {
+				    int index = indexOptional.getAsInt();
+				    if(result.get(index).getWorkout().getDate().before(ex.getWorkout().getDate())) {
+				    	result.set(index, ex);
+				    }
+				} else {
+				    result.add(ex);
+				}
+			}
+		}
+		
 		return result;
 	}
 	
-	public List<String> LoadMuscleByBodyPart(String label){
-		List<String> result = new ArrayList<>();
-		Bodypart bodypart=bodyPartRep.findByLabel(label);
-		for(Muscle m : muscleRep.findByBodypart(bodypart))
-			result.add(m.getLabel());
-		return result;
-	}
 	
-	public List<String> LoadExercicesByMuscle(String label){
+	
+	public List<Exercice> getAllExericesByUserAndMuscle(long id,String label){
 		
-		Muscle muscle= muscleRep.findByLabel(label);
+		List<Exercice> result = new ArrayList<Exercice>();
+		User user = userRep.findById(id).get();
+		for(Workout w : user.getWorkouts()) {
+			for(Exercice ex : w.getExercices()) {
+				if(ex.getMuscle().equals(label)) {
+					OptionalInt indexOptional = IntStream.range(0, result.size())
+						    .filter(i -> result.get(i).getLabel().equals(ex.getLabel()))
+						    .findFirst();
+					    
+				if (indexOptional.isPresent()) {
+					
+				    int index = indexOptional.getAsInt();
+				    if(result.get(index).getWorkout().getDate().before(ex.getWorkout().getDate())) {
+				    	result.set(index, ex);
+				    }
+				} else {
+				    result.add(ex);
+				}
+			}
+		}
+		}
 		
-		return exerciceRep.findDistinctLabelsByMuscle(muscle);
+		return result;
 	}
 	
 	

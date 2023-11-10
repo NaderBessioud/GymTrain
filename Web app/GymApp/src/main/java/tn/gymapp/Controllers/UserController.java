@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
+import tn.gymapp.Entities.Exercice;
 import tn.gymapp.Entities.ImageResponse;
 import tn.gymapp.Entities.User;
 import tn.gymapp.Entities.Workout;
@@ -92,19 +94,28 @@ public class UserController {
 		 return workoutService.AddWorkout(workout, id); 
 				 }
 	 
-	 @GetMapping("/loadBodyPart")
-	 public List<String> loadBodyPart(){
-		 return exerciceService.LoadBodyPart();
+	
+	 
+	 @GetMapping("/getExerciceById")
+	 public Exercice getExerciceById(@RequestParam("id") long id) {
+		 return exerciceService.getExerciceById(id);
 	 }
 	 
-	 @GetMapping("/loadMuscleByBodyPart")
-	 public List<String> loadMuscleByBodyPart(@RequestParam("part") String label){
-		 return exerciceService.LoadMuscleByBodyPart(label);
+	 @PutMapping("/updateExercice")
+	 public Exercice updateExercice(@RequestBody Exercice exercice) {
+		 return exerciceService.UpdateExercice(exercice);
 	 }
 	 
-	 @GetMapping("/loadExercicesByMuscle")
-	 public List<String> loadExercicesByMuscle(@RequestParam("muscle") String label){
-		 return exerciceService.LoadExercicesByMuscle(label);
+	 @GetMapping("/getAllExercicesByUser")
+	 public List<Exercice> getAllExercicesByUser(@RequestParam("id") long id){
+		 return exerciceService.getAllExericesByUser(id);
 	 }
+	 
+	 @GetMapping("/getAllExercicesByUserAndMuscle")
+	 public List<Exercice> getAllExercicesByUserAndMuscle(@RequestParam long id, @RequestParam("label") String label){
+		 return exerciceService.getAllExericesByUserAndMuscle(id,label);
+	 }
+	 
+
 
 }

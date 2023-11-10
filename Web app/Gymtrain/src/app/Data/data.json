@@ -1,0 +1,199 @@
+{
+  "bodyParts": [
+    {
+      "label": "Chest",
+      "muscles": [
+        {
+          "label": "Upper Chest",
+          "exercises": [
+            "Dips",
+            "Incline Bench Press",
+            "Incline Dumbbell Flyes",
+            "Incline Dumbbell Press",
+            "Incline Cable Flyes",
+            "Incline Push-Ups",
+            "Incline Smith Machine Press",
+            "Landmine Press",
+            "High Pulley Cable Crossovers",
+            "Incline Hammer Strength Press"
+          ]
+        },
+        {
+          "label": "Middle Chest",
+          "exercises": [
+            "Barbell Bench Press",
+            "Dumbbell Press",
+            "Machine Chest Press",
+            "Machine Chest Flyes",
+            "Dumbell Chest Flyes",
+            "Push-Ups",
+            "Smith Machine Bench Press",
+            "Cable Chest Flyes",
+            "Hammer Strength Chest Press",
+            "Pec Deck Flyes"
+
+          ]
+        },
+        {
+          "name": "Lower Chest",
+          "exercises": [
+            "Decline Bench Press",
+            "Decline Dumbbell Press",
+            "Decline Cable Flyes",
+            "Decline Dumbbell Flyes",
+            "Smith Machine Decline Bench Press"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Back",
+      "muscles": [
+        {
+          "label": "Latissimus Dorsi",
+          "exercises": [
+            "Pull-Ups",
+            "Bent-Over Rows",
+            "Lat Pulldowns",
+            "T-Bar Rows",
+            "Seated Cable Rows",
+            "Single-Arm Dumbbell Rows",
+            "Chin-Ups",
+            "Deadlifts",
+            "Cable Face Pulls"
+          ]
+        },
+        {
+          "label": "Rhomboids",
+          "exercises": [
+            "Face Pulls",
+            "Seated Cable Rows",
+            "Bent-Over Rows",
+            "Single-Arm Dumbbell Rows",
+            "Inverted Rows",
+            "Barbell Shrugs",
+            "Dumbbell Shrugs",
+            "Prone Y-Raises",
+            "Shrugs"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Shoulders",
+      "muscles": [
+        {
+          "label": "Anterior Deltoid",
+          "exercises": [
+            "Front Dumbbell Raises",
+            "Front Plate Raises",
+            "Front Barbell Raises",
+            "Overhead Press",
+            "Arnold Press",
+            "Front Cable Raises",
+            "Machine Shoulder Press",
+            "Upright Rows"
+
+          ]
+        },
+        {
+          "label": "Lateral Deltoid",
+          "exercises": [
+            "Lateral Dumbbell Raises",
+            "Lateral Cable Raises",
+            "Upright Rows",
+            "Machine Lateral Raises",
+            "Dumbbell Military Press",
+            "Reverse Pec Deck Flyes"
+          ]
+        },
+        {
+          "label": "Posterior Deltoid",
+          "exercises": [
+            "Rear Delt Fly (Dumbbells)",
+            "Rear Delt Fly (Cable Machine)",
+            "Face Pulls",
+            "Bent-Over Dumbbell Reverse Flyes",
+            "Rear Delt Machine Fly",
+            "Seated Bent-Over Lateral Raises",
+            "Standing Bent-Over Lateral Raises"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Legs",
+      "muscles": [
+        {
+          "label": "Quadriceps",
+          "exercises": [
+            "Barbell Back Squats",
+            "Front Squats",
+            "Hack Squats",
+            "Bulgarian Split Squats",
+            "Leg Press",
+            "Seated Leg Press",
+            "walking lunges dumbbell",
+            "Leg Extensions",
+            "step ups dumbbell",
+            "Smith Machine Squats"
+          ]
+        },
+        {
+          "name": "Hamstrings",
+          "exercises": [
+            "Deadlifts",
+            "Romanian Deadlifts",
+            "Good Mornings",
+            "Lying Leg Curls",
+            "Seated Leg Curls",
+            "Standing Leg Curls",
+            "Dumbbell Stiff-Leg Deadlifts",
+            "Glute-Ham Raises",
+            "Kettlebell Swing"
+          ]
+        }
+        ]
+
+      },
+    {
+      "label": "Arm",
+      "muscles": [
+        {
+          "label": "Triceps",
+          "exercises": [
+            "Tricep Dips",
+            "Tricep Pushdowns (Cable Machine)",
+            "Skull Crushers",
+            "Close-Grip Bench Press",
+            "Overhead Tricep Extensions",
+            "Cable Overhead Tricep Extensions",
+            "Tricep Kickbacks",
+            "Tricep Rope Pull-Downs",
+            "Reverse Grip Tricep Pushdowns"
+
+          ]
+        },
+        {
+          "name": "Biceps",
+          "exercises": [
+            "Bicep Curls (Barbell)",
+            "Bicep Curls (Dumbbells)",
+            "Hammer Curls",
+            "Concentration Curls",
+            "Preacher Curls",
+            "Incline Dumbbell Curls",
+            "Cable Bicep Curls",
+            "EZ Bar Curls",
+            "Reverse Grip Barbell Curls",
+            "21s",
+            "Chin-Ups (Underhand Grip)",
+            "Spider Curls"
+          ]
+        }
+      ]
+
+    }
+
+      ]
+    }

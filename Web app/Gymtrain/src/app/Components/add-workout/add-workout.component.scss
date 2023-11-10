@@ -8,6 +8,7 @@ body{
   display: flex;
   flex-direction: column;
   padding-top: 30px;
+  height: 100%;
 }
 .exercise-fieldset {
   display: flex;
@@ -16,7 +17,7 @@ body{
 
   margin: 10px;
   position: relative;
-  width: 300px; /* Adjust the width as needed */
+
   border:1px solid #999; border-radius:8px; box-shadow:0 0 8px #999;padding:6px;
   width: 800px;
 }
@@ -91,5 +92,8 @@ body{
 ::placeholder {
   color: #8e8e8e;
 
+}
+.container1{
+  flex: 1;
 }
 
