@@ -89,9 +89,19 @@ right: 3%;
   color: #fefefe !important;
 }
 
+.logo{
+  left:0;
+  width: 10%;
+
+}
+.logo a img{
+  width: 65%;
+  border-radius: 50%;
+}
+
 @media screen and (min-width: 768px)
 {body{margin: calc(3rem + 1rem) 0 0 0;padding-left: calc(68px )}
-  .header{height: calc(3rem + 1rem);padding: 0 2rem 0 calc(68px + 2rem)}
+  .header{height: calc(3rem + 1rem);padding: 0 0 0 calc(5px )}
   .header_img{width: 40px;height: 40px}
   .header_img img{width: 45px; cursor: pointer;}
   .l-navbar{left: 0;padding: 1rem 1rem 0 0}
