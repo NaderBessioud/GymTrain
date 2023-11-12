@@ -7,22 +7,43 @@ import {AuthenticationComponent} from "./Components/authentication/authenticatio
 import {WorkoutsComponent} from "./Components/workouts/workouts.component";
 import {AddWorkoutComponent} from "./Components/add-workout/add-workout.component";
 import {ExercicesComponent} from "./Components/exercices/exercices.component";
+import {NutritionComponent} from "./Components/nutrition/nutrition.component";
+import {ContactComponent} from "./Components/contact/contact.component";
+import {AcceuilComponent} from "./Components/acceuil/acceuil.component";
 
 const routes: Routes = [
-
   {path:"home",component:HomeComponent, data: {
-      pageTitle: 'IronWave',
+      title: 'IronWave',
     }},
   {
-    path: '',
+    path: 'ironwave',
     component: NavandsidebarComponent,
     children: [
-      { path: 'profile', component: UserProfileComponent },
-      { path: 'Calender', component: WorkoutsComponent },
-      { path: 'NewWorkout', component: AddWorkoutComponent },
-      { path: 'Exercices', component: ExercicesComponent },
+      { path: 'profile', component: UserProfileComponent,data:{
+          title:"Profile"
+        } },
+      { path: 'Calender', component: WorkoutsComponent,data:{
+          title:"Workout Calender"
+        } },
+      { path: 'NewWorkout', component: AddWorkoutComponent,data:{
+          title:"Workouts"
+        } },
+      { path: 'Exercices', component: ExercicesComponent,data:{
+          title:"Exercices"
+        } },
+      { path: 'Nutrition', component: NutritionComponent,data:{
+          title:"Nutrition"
+        } },
+      { path: 'Contact', component: ContactComponent,data:{
+          title:"Contact us"
+        } },
+      { path: 'WelcomePage', component: AcceuilComponent,data:{
+          title:"Iron Wave"
+        } },
     ],
   },
+  { path: '**', redirectTo: sessionStorage.getItem("id") ? '/ironwave/WelcomePage' : '/home', pathMatch: 'full' },
+
 
 
 ];

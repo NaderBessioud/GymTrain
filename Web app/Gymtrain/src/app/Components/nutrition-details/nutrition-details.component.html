@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header bg-primary text-white text-center align-items-center">
+      <h2 class="modal-title mx-auto">Your Nutrition Details</h2>
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body ">
+      <div class="text-center d-flex flex-column justify-content-center">
+      <h3>This is your nutrition details</h3>
+      </div>
+      <ul>
+        <li><span>Calories: </span>{{UserNutrition.callories}}</li>
+        <li><span>Protein: </span>{{UserNutrition.protein }} grames</li>
+        <li><span>Fat: </span>{{UserNutrition.fats }} grames</li>
+        <li><span>Carbs: </span>{{UserNutrition.carbs }} grames</li>
+      </ul>
+    </div>
+  </div>
+</div>

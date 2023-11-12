@@ -23,6 +23,7 @@ import tn.gymapp.Entities.User;
 import tn.gymapp.Entities.Weighthistory;
 import tn.gymapp.Repositories.UserRep;
 import tn.gymapp.Repositories.WeighthisRep;
+import tn.gymapp.dto.Nutrition;
 
 @Service
 @RequiredArgsConstructor
@@ -177,6 +178,24 @@ public class UserService  {
 		user.setWorkoutroutine(u.getWorkoutroutine());
 		return userrep.save(user);
 		
+	}
+	
+	
+	public Nutrition getUserNutrition(long id,float pers,float nb) {
+		Nutrition nutrition=new Nutrition();
+		User user=userrep.findById(id).get();
+		double preteinGram = user.getWeight()*2.2*nb;  
+		double fatGram = user.getWeight()*2.2*0.5;   
+		double callories = user.getWeight() * 2.2 *pers;
+		double carbsGram = (callories - (preteinGram * 4 + fatGram * 9)) / 4;
+		carbsGram = Double.parseDouble(String.format("%.2f", carbsGram).replace(",", "."));
+		nutrition.setProtein(preteinGram);
+		nutrition.setFats(fatGram);
+		nutrition.setCarbs(carbsGram);
+		nutrition.setCallories(callories);
+		
+		
+		return nutrition;
 	}
 	
 	

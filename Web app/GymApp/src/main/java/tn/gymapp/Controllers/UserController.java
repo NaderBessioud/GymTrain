@@ -23,6 +23,7 @@ import tn.gymapp.Services.ExerciceService;
 import tn.gymapp.Services.FileService;
 import tn.gymapp.Services.UserService;
 import tn.gymapp.Services.WorkoutService;
+import tn.gymapp.dto.Nutrition;
 import tn.gymapp.dto.Workoutevent;
 import tn.gymapp.dto.WorkoutsResponse;
 
@@ -114,6 +115,11 @@ public class UserController {
 	 @GetMapping("/getAllExercicesByUserAndMuscle")
 	 public List<Exercice> getAllExercicesByUserAndMuscle(@RequestParam long id, @RequestParam("label") String label){
 		 return exerciceService.getAllExericesByUserAndMuscle(id,label);
+	 }
+	 
+	 @GetMapping("/getUserNutrition")
+	 public Nutrition getUserNutrition(@RequestParam("id") long id,@RequestParam("percentage") float percentage,@RequestParam("nb") float nb) {
+		 return service.getUserNutrition(id, percentage, nb);
 	 }
 	 
 

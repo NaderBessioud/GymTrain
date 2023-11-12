@@ -30,6 +30,11 @@ import {UpdateExerciceComponent} from "./Components/update-exercice/update-exerc
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {CarouselModule} from "ngx-bootstrap/carousel";
+import { NutritionComponent } from './Components/nutrition/nutrition.component';
+import { NutritionDetailsComponent } from './Components/nutrition-details/nutrition-details.component';
+import {AlertModule} from "ngx-bootstrap/alert";
+import { ContactComponent } from './Components/contact/contact.component';
+import { AcceuilComponent } from './Components/acceuil/acceuil.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,10 @@ import {CarouselModule} from "ngx-bootstrap/carousel";
     AddWorkoutComponent,
     UpdateExerciceComponent,
     ExercicesComponent,
+    NutritionComponent,
+    NutritionDetailsComponent,
+    ContactComponent,
+    AcceuilComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,7 @@ import {CarouselModule} from "ngx-bootstrap/carousel";
     MatNativeDateModule,
     MatFormFieldModule,
     MatMenuModule,
+    AlertModule,
     MatRippleModule,
     HttpClientModule,
     FormsModule,

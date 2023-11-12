@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {UpdateExerciceComponent} from "../update-exercice/update-exercice.component";
 import {DataService} from "../../Services/data.service";
 import {ex} from "@fullcalendar/core/internal-common";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -36,10 +37,14 @@ export class ExercicesComponent implements OnInit {
   // Add more body parts and their associated items as needed
 
   constructor(private service:UserService,public dialog: MatDialog,
-              private dataService:DataService) { }
+              private dataService:DataService,
+              private router:Router) { }
 
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem("id")){
+      this.router.navigate(['home'], { state: { source: 'inside' } })
+    }
   this.dataService.getJsonData().subscribe(data=>{
     this.jsonData = data
     this.BodyParts=data.bodyParts

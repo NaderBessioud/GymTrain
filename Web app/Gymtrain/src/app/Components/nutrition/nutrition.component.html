@@ -1,0 +1,32 @@
+<div class="container1">
+  <div class="image-holder">
+    <h3>Choose your body fat percentage by entring the number of the percentage</h3>
+    <img src="assets/images/body-fat-men.jpg" *ngIf="gender=='men'">
+    <img src="assets/images/body-fat-women.jpg" *ngIf="gender=='women'">
+  </div>
+  <div>
+    <form [formGroup]="NutritionForm">
+    <mat-form-field class="example-full-width"  >
+      <mat-label>percentage</mat-label>
+      <input class="input_panel"  matInput  formControlName="perc" required type="text"  placeholder="your percentage" [(ngModel)]="percentage"   >
+      <mat-error *ngIf="NutritionForm.get('perc')?.hasError('required')">
+        Percentage is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" style="margin-left: 20px">
+      <mat-label>Experience</mat-label>
+      <mat-select  [(ngModel)]="nbexp"    formControlName="exp">
+        <mat-option *ngFor="let exp of exps" [value]="exp" style="background-color: white;color: black" >
+          {{exp}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </form>
+
+  </div>
+</div>
+
+
+<button mat-button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" (click)="getUserNutrition()" style="margin-left: 30px">OK</button>

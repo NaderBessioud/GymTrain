@@ -3,6 +3,8 @@ import {SideBarService} from "../../../Services/side-bar.service";
 import {UserProfileComponent} from "../../user-profile/user-profile.component";
 import {AuthenticationComponent} from "../../authentication/authentication.component";
 import {UserService} from "../../../Services/user.service";
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../../../Services/authentication.service";
 
 
 
@@ -17,7 +19,9 @@ export class NavandsidebarComponent implements OnInit {
   currentComponent: any = null;
   image:any;
   constructor(private renderer: Renderer2, private el: ElementRef,
-              private service:UserService) {
+              private service:UserService,
+              private authService:AuthenticationService,
+              private router:Router) {
 
   }
   isDropdownOpen: boolean = false;
@@ -27,8 +31,16 @@ export class NavandsidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem("id")){
+      this.router.navigate(['home'], { state: { source: 'inside' } })
+    }
+
     this.service.GetUserById(sessionStorage.getItem("id")).subscribe(u=>{
-      this.image=u.image
+      this.service.DownloadImage(u.image).subscribe(im=>{
+        this.image=im
+        console.log(im)
+      })
+
     })
     const toggle = this.el.nativeElement.querySelector('#header-toggle');
     const nav = this.el.nativeElement.querySelector('#nav-bar');
@@ -78,6 +90,10 @@ export class NavandsidebarComponent implements OnInit {
         this.currentComponent = AuthenticationComponent;
         break;
     }
+  }
+
+  signout(){
+    this.authService.signout("signout")
   }
 
 }

@@ -230,7 +230,7 @@
 
                       <div class="row">
                         <div class="col d-flex justify-content-end">
-                          <button class="btn btn-primary" type="submit" (click)="updateProfile()">Update Profile</button>
+                          <button class="btn btn-primary" [disabled]="!form.valid && form.dirty" type="submit" (click)="updateProfile()">Update Profile</button>
                         </div>
                       </div>
                     </form>
@@ -318,6 +318,7 @@
     </div>
   </div>
 </div>
+<alert *ngIf="good==true" [type]="alert.type" [dismissible]="dismissible" (onClosed)="closeAlert()" class="custom-alert">{{ alert.msg }}</alert>
 
 </body>
 

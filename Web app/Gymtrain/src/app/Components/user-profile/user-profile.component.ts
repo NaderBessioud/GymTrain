@@ -4,6 +4,7 @@ import {AuthenticationService} from "../../Services/authentication.service";
 import {User} from "../../Models/user";
 import {UserService} from "../../Services/user.service";
 import {SideBarService} from "../../Services/side-bar.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -31,17 +32,27 @@ export class UserProfileComponent implements OnInit {
   PassMatch:string="2 password does not match";
   isButtonDisabled = false
   fullName:string=""
+  dismissible = true;
+  alert:any =
+    {
+      type: 'success',
+      msg: `Profile updated.`
+    }
+    good=false
 
 
   constructor(private fb:FormBuilder,private renderer: Renderer2,
               private service:UserService,
-              private sidebarService: SideBarService) { }
+              private router:Router) { }
 
     tabContainerWidth: number = 0; // Initialize to 0
 
 
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem("id")){
+      this.router.navigate(['home'], { state: { source: 'inside' } })
+    }
 
     this.service.GetUserById(sessionStorage.getItem("id")).subscribe(u=>{
       this.user=u
@@ -140,7 +151,8 @@ export class UserProfileComponent implements OnInit {
       user1.workoutroutine=this.user.workoutroutine
 
       this.service.UpdateProfile(user1).subscribe(res=>{
-          alert("Prodile updated")
+        this.alert.msg="Profile updated"
+
       })
     }
 
@@ -150,12 +162,15 @@ export class UserProfileComponent implements OnInit {
       if(r){
         this.service.UpdatePassword(this.npass,sessionStorage.getItem("id")).subscribe(result=>{
           if(result){
-            alert("Password Updated")
+            this.alert.msg="Password Updated"
+
           }
         })
       }
       else{
-        alert("verify your password");
+        this.alert.msg="verify your password"
+        this.alert.type="danger"
+
       }
     })
 
@@ -174,6 +189,8 @@ export class UserProfileComponent implements OnInit {
       this.isButtonDisabled=true;
     }
   }
-
+  closeAlert(){
+    this.good=false
+  }
 
 }

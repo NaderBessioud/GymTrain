@@ -211,7 +211,9 @@
     </div>
 
 
-    <button type="button" class="btn btn-primary" (click)="submitWorkout()">Submit</button>
+    <button type="button" class="btn btn-primary" [disabled]="!workoutForm.valid && workoutForm.dirty" (click)="submitWorkout()">Submit</button>
   </form>
 </div>
+
+<alert *ngIf="good == true" type="success" [dismissible]="dismissible" (onClosed)="closeAlert()" class="custom-alert" >You successfully add new workout.</alert>
 </body>

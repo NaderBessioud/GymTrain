@@ -1,0 +1,44 @@
+<section class="hero is-primary is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Contact us</h1>
+    </div>
+  </div>
+
+</section>
+<section class="section">
+  <div class="container">
+    <form #myForm action="https://formsubmit.co/nader.bessioud@esprit.tn" method="POST">
+      <div class="field">
+        <label class="label">Name</label>
+        <input type="text" name="name" placeholder="Your name" class="input" [(ngModel)]="name" required>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <input type="email" name="email" placeholder="Your email" class="input" [(ngModel)]="email" required>
+      </div>
+      <input type="hidden" name="_subject" value="IronWave Reclamation">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_autoresponse" value="Thank you for reaching out whith us we well reply within 24 hours">
+      <input type="hidden" name="_next" value="http://localhost:4200/WelcomePage">
+
+      <div class="field">
+        <label class="label">Your message</label>
+        <textarea name="message" class="textarea" placeholder="Your Message" [(ngModel)]="message"  required></textarea>
+      </div>
+
+      <button type="submit" class="button is-large is-success" (click)="ShowAlert()">Send</button>
+    </form>
+  </div>
+
+</section>
+
+<alert type="success" *ngIf="good==true" (onClosed)="closeAlert()" class="custom-alert">
+  <strong>Thank you</strong> for contacting us!
+</alert>
+
+<alert type="success" *ngIf="good==true" (onClosed)="closeAlert()" class="custom-alert1">
+  We will reply to your email within <strong>24 hours</strong>.
+</alert>
+

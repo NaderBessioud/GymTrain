@@ -42,5 +42,7 @@
   </div>
 </div>
 
+<alert *ngIf="good==true" [type]="alert.type" [dismissible]="dismissible" (onClosed)="closeAlert()" class="custom-alert">{{ alert.msg }}</alert>
+
 </body>
 

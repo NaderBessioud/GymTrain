@@ -5,6 +5,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Exercice} from "../../Models/exercice";
 import {ex} from "@fullcalendar/core/internal-common";
 import {DataService} from "../../Services/data.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-workout',
@@ -27,9 +28,13 @@ export class AddWorkoutComponent implements OnInit {
   part:string=""
   bodypart:string=""
   muscle1:any
+  good:boolean=false
+
+  dismissible = true;
   constructor(private service:UserService,private fb: FormBuilder,
               private dataService:DataService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private router:Router) {
 
   }
   getexercises(): FormArray {
@@ -37,6 +42,9 @@ export class AddWorkoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem("id")){
+      this.router.navigate(['home'], { state: { source: 'inside' } })
+    }
 
     this.LoadBodyPart()
     this.workoutForm = this.fb.group({
@@ -63,7 +71,7 @@ export class AddWorkoutComponent implements OnInit {
   addWorkout(){
     this.service.addWorkout(this.workout,sessionStorage.getItem("id")).subscribe(w=>{
         if(w != null){
-          alert("Workout added Successfuly")
+          this.good=true
           this.workout=new Workout();
           this.exs.splice(1)
           this.exs[0]=new Exercice();
@@ -167,6 +175,10 @@ export class AddWorkoutComponent implements OnInit {
       }
     }
 
+  }
+
+  closeAlert(){
+    this.good=false
   }
 
 }

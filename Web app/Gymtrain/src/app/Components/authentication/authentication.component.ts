@@ -25,11 +25,19 @@ export class AuthenticationComponent implements OnInit {
   matchPass:boolean=false;
   PassMatch:string="2 password does not match";
   pass:string = ""
+  good:boolean=false
+  dismissible = true;
+  alert:any =
+    {
+      type: 'danger',
+      msg: `Invalid email or password.`
+    }
 
 
   constructor(private authservice:AuthenticationService, private fb:FormBuilder,
               private router:Router,
-              public dialogRef: MatDialogRef<AuthenticationComponent>) { }
+              public dialogRef: MatDialogRef<AuthenticationComponent>,
+              @Inject(MAT_DIALOG_DATA) public cause:string) { }
 
 
 
@@ -50,25 +58,61 @@ export class AuthenticationComponent implements OnInit {
 
 
   Login(){
+    if(this.cause=="login"){
     this.authservice.Login(this.email, this.password).subscribe(res=>{
       if(res != null){
         sessionStorage.setItem("token",res.token);
-        sessionStorage.setItem("reftoken",res.refreshtoken);
+
         sessionStorage.setItem("email",res.user.email);
         sessionStorage.setItem("id",res.user.idu);
         this.email = ""
         this.password = ""
         this.dialogRef.close()
-        this.router.navigate(['profile'])
+        this.router.navigate(['ironwave/WelcomePage'])
 
       }
       else{
         this.email = ""
         this.password = ""
-        alert("Invalid email or password")
+        this.good=true
       }
 
-    })
+    },
+    (error) => {
+        // Handle error response
+
+          this.email = ""
+          this.password = ""
+          this.good=true
+          console.log('Internal Server Error:');
+          // Handle other 5xx errors if needed
+
+      }
+    )
+    }
+    else{
+
+      this.authservice.Login(this.email, this.password).subscribe(res=>{
+        if(res != null){
+          sessionStorage.setItem("token",res.refreshtoken);
+
+          sessionStorage.setItem("email",res.user.email);
+          sessionStorage.setItem("id",res.user.idu);
+          this.email = ""
+          this.password = ""
+          this.dialogRef.close()
+          this.router.navigate(['ironwave/WelcomePage'])
+
+        }
+        else{
+          this.email = ""
+          this.password = ""
+          this.good=true
+        }
+
+      })
+
+    }
   }
 
   Register(){
@@ -80,9 +124,11 @@ export class AuthenticationComponent implements OnInit {
   checkemail(){
 
 this.authservice.Checkemail(this.user.email).subscribe(e=>{
-  console.log(e)
+
   if(e){
-    alert("Email already exist")
+    this.alert.msg="Email already exist"
+    this.good=true
+
     this.isButtonDisabled = true
   }
   else{
@@ -131,7 +177,9 @@ this.authservice.Checkemail(this.user.email).subscribe(e=>{
 
   }
 
-
+closeAlert(){
+    this.good=false
+}
 
 
 

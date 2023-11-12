@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -76,7 +77,10 @@ public class SecurityConfiguration     {
 			
 			.sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.authenticationProvider(authenticationProvider())
-			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+			
+			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+			.exceptionHandling()
+			.authenticationEntryPoint(authenticationEntryPoint());
 		return http.build();
 			}
 	
@@ -89,7 +93,10 @@ public class SecurityConfiguration     {
 	}
 
 
-	
+	 @Bean
+	    public AuthenticationEntryPoint authenticationEntryPoint() {
+	        return new CustomAuthenticationEntryPoint();
+	    }
 
 
 

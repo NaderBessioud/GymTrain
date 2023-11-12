@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AuthenticationComponent} from "../authentication/authentication.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,12 +10,50 @@ import {AuthenticationComponent} from "../authentication/authentication.componen
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {
+  cause:string="login"
+  good:boolean=false
+  dismissible = true;
+  alert:any =
+    {
+      type: 'success',
+      msg: `You successfully read this important alert message.`
+    }
+  constructor(public dialog: MatDialog,private router:Router) {
+    const sourceComponent = this.router.getCurrentNavigation()?.extras.state?.['source'];
+    console.log(sourceComponent)
+    if(sourceComponent=="inside"){
+      this.alert.msg="You need to be authenticated to access this page"
+      this.alert.type="danger"
+      this.good=true
+
+    }
+    else if(sourceComponent=="unauthorized"){
+      this.alert.msg="Your are not authorized to access this page"
+      this.alert.type="danger"
+      this.good=true
+
+    }
+    else if(sourceComponent=="tokenexpired"){
+      this.alert.msg="Your session ended. Please login again"
+      this.alert.type="danger"
+      this.good=true
+
+      this.cause="tokenexpired"
+
+    }
+    else if(sourceComponent=="signout"){
+      this.alert.msg="See you soon"
+      this.alert.type="info"
+      this.good=true
+
+    }
   }
 
 
 
   ngOnInit(): void {
+
+
   }
 
   openModal() {
@@ -26,7 +65,7 @@ export class HomeComponent implements OnInit {
         width:"1000px",
         height:"65vh",
         panelClass: 'custom-dialog-panel',
-
+        data:this.cause
 
       },);
 
@@ -39,7 +78,8 @@ export class HomeComponent implements OnInit {
 
         width:"1000px",
         height:"65vh",
-        panelClass: 'custom-dialog-panel'
+        panelClass: 'custom-dialog-panel',
+        data:this.cause
 
       });
 
@@ -50,5 +90,9 @@ export class HomeComponent implements OnInit {
 
 
 
+  }
+
+  closeAlert(){
+    this.good=false
   }
 }

@@ -3,3 +3,10 @@ body{
   height: 900px
 
 }
+
+
+.custom-alert {
+  position: fixed;
+  bottom: 10px; /* Adjust the distance from the bottom as needed */
+  right: 10px; /* Adjust the distance from the right as needed */
+}

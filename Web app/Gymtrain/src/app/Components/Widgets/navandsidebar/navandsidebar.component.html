@@ -1,20 +1,20 @@
-<body id="body-pd" style="padding-left: 68px">
+<body id="body-pd" >
 
 
-<header class="header" id="header" style="background-color: #D891EF">
+<header class="header" id="header" style="background-color: #008080">
 
 
   <div class="navlist1">
     <ul class="navitem1">
-      <li><a href="#">Home</a></li>
+      <li><a routerLink="WelcomePage">Home</a></li>
       <li><a href="#">About</a></li>
-      <li><a href="#">Contact us</a></li>
+      <li><a routerLink="Contact">Contact us</a></li>
     </ul>
   </div>
-  <div class="header_img"> <img [src]="image" alt="" (click)="toggleDropdown()">
+  <div class="header_img"> <img [src]="image.image" alt="" (click)="toggleDropdown()">
     <ul class="dropdown-list" *ngIf="isDropdownOpen">
-      <li><a href="#"><i class="fa-solid fa-user"></i> Profile</a></li>
-      <li><a href=""><i class="fa-solid fa-gear"></i> Setting</a></li>
+      <li><a routerLink="profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+      <li><a href=""><i class="fa-solid fa-right-from-bracket" (click)="signout()"></i> Sign out</a></li>
 
     </ul></div>
 
@@ -22,19 +22,21 @@
 <div class="l-navbar" id="nav-bar" >
   <nav class="nav">
     <div>
-      <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">BBBootstrap</span> </a>
+      <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Bootstrap</span> </a>
       <div class="nav_list">
 
         <a  class="nav_link_menu ">  <i class='bx bx-menu' id="header-toggle"> </i><span class="nav_name">Menu</span> </a>
-        <a  class="nav_link active" routerLink="profile"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> </a>
-        <a  class="nav_link" routerLink="Calender"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
-        <a  class="nav_link" routerLink="NewWorkout"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span> </a>
-        <a  class="nav_link" routerLink="Exercices"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a>
-        <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>
-        <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
+        <a  class="nav_link active" routerLink="WelcomePage"> <i class='bx bx-home nav_icon'></i> <span class="nav_name">Acceuil</span> </a>
+
+        <a  class="nav_link" routerLink="profile"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profile</span> </a>
+
+        <a  class="nav_link " routerLink="Calender"> <i class='bx bx-calendar nav_icon'></i> <span class="nav_name">Workouts Calender</span> </a>
+        <a  class="nav_link" routerLink="NewWorkout"> <i class='bx bx-add-to-queue nav_icon'></i> <span class="nav_name">New workout</span> </a>
+        <a  class="nav_link" routerLink="Exercices"> <i class='bx bx-dumbbell nav_icon'></i> <span class="nav_name">Exercices</span> </a>
+        <a  class="nav_link" class="nav_link" routerLink="Nutrition"> <i class='bx bx-bowl-hot nav_icon'></i> <span class="nav_name">Nutrition</span> </a>
       </div>
     </div>
-    <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+    <a  class="nav_link"> <i class='bx bx-log-out nav_icon' (click)="signout()" style="cursor: pointer"></i> <span class="nav_name">SignOut</span> </a>
   </nav>
 </div>
 <!--Container Main start-->

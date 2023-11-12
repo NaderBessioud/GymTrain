@@ -6,6 +6,7 @@ import {Workoutevent} from "../../Models/workoutevent";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../Models/user";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -25,7 +26,13 @@ export class WorkoutsComponent implements OnInit {
     eventClick : this.handleDateClick.bind(this),
     displayEventTime: false,
   };
-
+  good:boolean=false
+  dismissible = true;
+  alert:any =
+    {
+      type: '',
+      msg: ``
+    }
 
   config= {
     animated :true
@@ -37,9 +44,13 @@ export class WorkoutsComponent implements OnInit {
 
   @ViewChild('template') template!: string
   constructor(private service:UserService, private modelService: BsModalService,
-              private fb:FormBuilder) { }
+              private fb:FormBuilder,
+              private router:Router) { }
 
   ngOnInit(): void {
+    if(!sessionStorage.getItem("id")){
+      this.router.navigate(['home'], { state: { source: 'inside' } })
+    }
     this.updateEvent()
 
     this.form = this.fb.group({
@@ -57,11 +68,12 @@ export class WorkoutsComponent implements OnInit {
 
   updateWorkoutRoutine(){
     var user:User=new User();
-    user.idu=sessionStorage.getItem("idu")
+    user.idu=sessionStorage.getItem("id")
     user.workoutroutine=this.ppr+"-"+this.plr+"-"+this.lpr
     this.service.updateWorkoutRoutine(user).subscribe(r=>{
       this.updateEvent()
-      alert("workout updated successfuly")
+      this.alert.msg="Workout routine updated successfuly"
+      this.alert.type="success"
     })
   }
 
@@ -77,6 +89,10 @@ export class WorkoutsComponent implements OnInit {
 
 
     })
+  }
+
+  closeAlert(){
+    this.good=false
   }
 
 }

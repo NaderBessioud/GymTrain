@@ -8,6 +8,7 @@ import {ImageResponse} from "../Models/image-response";
 import {Workoutevent} from "../Models/workoutevent";
 import {Workout} from "../Models/workout";
 import {Exercice} from "../Models/exercice";
+import {Nutrition} from "../Models/nutrition";
 
 
 @Injectable({
@@ -69,7 +70,9 @@ export class UserService {
     return this.http.get<Exercice[]>(this.URL+"getAllExercicesByUserAndMuscle",{params:{id:id,label:label}})
   }
 
-
+  getUserNutrition(id:any,percentage:number,nb:number):Observable<Nutrition>{
+    return this.http.get<Nutrition>(this.URL+"getUserNutrition",{params:{id:id,percentage:percentage,nb:nb}})
+  }
 
 }
 
